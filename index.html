@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my Digital Portofolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen relative overflow-hidden">
+    <!-- High-Resolution Looping Background Video -->
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <source src="BG.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="flex flex-col md:flex-row h-screen md:p-[10%] p-[6%] relative z-10">
+        <!-- Left Column -->
+        <div class="flex justify-center items-center md:mt-0 mt-[20%] md:w-2/3 z-20">
+            <div class="relative bottom-[4em] bg-black/50 p-8 rounded-xl">
+                <h5 class="text-[#a6adba] text-2xl mb-2">Hello There 👋</h5>
+                <h1 class="md:text-6xl text-4xl text-[#ced4d7] font-bold mb-2 pr-[1%]">
+                    I'm Sofia Lorreine T. Alegado, and this is my Digital Portofolio
+                </h1>
+                <div>
+                    <span class="text-[#a6adba] text-2xl">
+                        Student, BASLT - 4A
+                        <span class="animate-blink text-white ml-1">|</span>
+                    </span>
+                </div>
+                <br />
+                <div class="mt-5">
+                    <a href="Home.html" class="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition shadow">
+                        Let's proceed
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Right Column -->
+        <div class="flex justify-center items-center md:w-1/2">
+            <div class="relative md:bottom-[3em] bottom-[5em]">
+                <!-- You can add an image or illustration here if needed -->
+            </div>
+        </div>
+    </div>
+    <style>
+        .animate-blink {
+            animation: blink 1s steps(2, start) infinite;
+        }
+        @keyframes blink {
+            to {
+                visibility: hidden;
+            }
+        }
+    </style>
+</body>
+</html>
