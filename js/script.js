@@ -75,6 +75,15 @@ const projectData = {
     }
 };
 
+// Map container number to project page
+const projectLinks = {
+    1: "ProjectAlpha.html",
+    2: "ProjectBeta.html",
+    3: "ProjectGamma.html"
+};
+
+let currentContainer = null;
+
 // Initialize sections and modal when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     sections[0].element = document.querySelector('.min-h-screen');
@@ -310,6 +319,13 @@ document.addEventListener('keydown', function(e) {
         if (currentSectionIndex === 1) {
             scrollToSection(0);
         }
+    }
+});
+
+// View Project button logic
+document.getElementById('view-project-btn').addEventListener('click', function() {
+    if (currentContainer && projectLinks[currentContainer]) {
+        window.location.href = projectLinks[currentContainer];
     }
 });
 
