@@ -322,6 +322,14 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// When a container is clicked, store which one and open modal
+document.querySelectorAll('.container-card').forEach(card => {
+    card.addEventListener('click', function() {
+        currentContainer = this.getAttribute('data-container');
+        openModal(currentContainer);
+    });
+});
+
 // View Project button logic
 document.getElementById('view-project-btn').addEventListener('click', function() {
     if (currentContainer && projectLinks[currentContainer]) {
