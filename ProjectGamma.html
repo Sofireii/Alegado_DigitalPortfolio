@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen relative overflow-hidden">
     <!-- Main Section -->
-    <div class="flex flex-col md:flex-row items-center justify-center min-h-screen pt-16 pb-32">
+    <div class="min-h-screen flex flex-col md:flex-row items-center justify-center pt-16 pb-32">
         <!-- Left: Text -->
         <div class="md:w-1/2 w-full flex flex-col items-center md:items-end pr-0 md:pr-8">
             <div class="max-w-md text-center md:text-right">
@@ -28,6 +28,34 @@
         </div>
     </div>
     
+    <!-- Diagonal Containers Section -->
+    <div id="info-containers" class="max-w-5xl mx-auto px-4 pb-8">
+        <div class="flex flex-col gap-20">
+            <!-- Top Left Container -->
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2 bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex flex-col items-center justify-center transform md:-translate-y-8">
+                    <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Gamma Image 1</h3>
+                    <div class="w-full h-40 bg-gray-600 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://via.placeholder.com/400x200/4A5568/38B2AC?text=Gamma+Image+1" alt="Gamma 1" class="w-full h-full object-cover" />
+                    </div>
+                    <p class="text-gray-300 text-center text-sm">This is the first image placeholder for Project Gamma.</p>
+                </div>
+                <div class="md:w-1/2"></div>
+            </div>
+            <!-- Bottom Right Container -->
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2"></div>
+                <div class="md:w-1/2 bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex flex-col items-center justify-center transform md:translate-y-8">
+                    <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Gamma Image 2</h3>
+                    <div class="w-full h-40 bg-gray-600 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://via.placeholder.com/400x200/4A5568/38B2AC?text=Gamma+Image+2" alt="Gamma 2" class="w-full h-full object-cover" />
+                    </div>
+                    <p class="text-gray-300 text-center text-sm">This is the second image placeholder for Project Gamma.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Back Button -->
     <div class="fixed left-1/2 bottom-10 transform -translate-x-1/2 z-30">
         <a href="Home.html"
@@ -38,5 +66,7 @@
             Back to Home
         </a>
     </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
