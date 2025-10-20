@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Digital Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen relative overflow-hidden">
@@ -42,15 +43,19 @@
     <!-- Info Containers Section -->
     <div id="info-containers" class="w-full max-w-5xl mx-auto mt-32 px-4 pb-20">
         <div class="flex flex-col md:flex-row gap-8">
-            <!-- Container 1 -->
-            <div class="bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer container-card" data-container="1">
-                <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Project Alpha</h3>
-                <div class="w-full h-40 bg-gray-600 rounded-lg mb-4 overflow-hidden hover:scale-105 transition-transform duration-300">
-                    <img src="https://via.placeholder.com/400x200/4A5568/38B2AC?text=Project+Alpha" alt="Project Alpha" class="w-full h-full object-cover" />
+            <!-- Project Alpha: 1x7 Vertical Text Buttons -->
+            <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer project-alpha-social">
+                <div class="alpha-hover-text text mt-6">HOVER FOR OPTIONS</div>
+                <div class="main alpha-social-cards flex-col" style="position:relative; width:100%;">
+                    <div class="card-text">Option 1</div>
+                    <div class="card-text">Option 2</div>
+                    <div class="card-text">Option 3</div>
+                    <div class="card-text">Option 4</div>
+                    <div class="card-text">Option 5</div>
+                    <div class="card-text">Option 6</div>
+                    <div class="card-text">Option 7</div>
                 </div>
-                <p class="text-gray-300 text-center text-sm">Click to view details</p>
             </div>
-            
             <!-- Container 2 -->
             <div class="bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer container-card" data-container="2">
                 <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Project Beta</h3>
@@ -59,7 +64,6 @@
                 </div>
                 <p class="text-gray-300 text-center text-sm">Click to view details</p>
             </div>
-            
             <!-- Container 3 -->
             <div class="bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer container-card" data-container="3">
                 <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Project Gamma</h3>
@@ -114,10 +118,10 @@
     <footer class="bg-gray-800/95 border-t border-white/10 text-gray-200 mt-12">
         <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="text-sm">&copy; 2025 Your Name. All rights reserved.</div>
-            <div class="flex gap-4 text-sm">
-                <a href="#" class="text-gray-300 hover:text-white transition">Privacy</a>
-                <a href="#" class="text-gray-300 hover:text-white transition">Terms</a>
-                <a href="#" class="text-gray-300 hover:text-white transition">Contact</a>
+            <div class="flex gap-4 justify-center mt-4">
+                <button class="boton-elegante">Privacy</button>
+                <button class="boton-elegante">Terms</button>
+                <button class="boton-elegante">Contact</button>
             </div>
         </div>
     </footer>

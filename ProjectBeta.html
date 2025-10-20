@@ -31,26 +31,28 @@
     <!-- Diagonal Containers Section -->
     <div id="info-containers" class="max-w-5xl mx-auto px-4 pb-8">
         <div class="flex flex-col gap-20">
-            <!-- Top Left Container -->
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="md:w-1/2 bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex flex-col items-center justify-center transform md:-translate-y-8">
-                    <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Beta Image 1</h3>
-                    <div class="w-full h-40 bg-gray-600 rounded-lg mb-4 overflow-hidden">
+            <!-- Top Left Container: image left, text right -->
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2 bg-white/10 rounded-lg shadow p-8 min-h-[220px] flex items-center justify-center transform md:-translate-y-8">
+                    <div class="w-full h-40 bg-gray-600 rounded-lg overflow-hidden">
                         <img src="https://via.placeholder.com/400x200/4A5568/38B2AC?text=Beta+Image+1" alt="Beta 1" class="w-full h-full object-cover" />
                     </div>
-                    <p class="text-gray-300 text-center text-sm">This is the first image placeholder for Project Beta.</p>
                 </div>
-                <div class="md:w-1/2"></div>
+                <div class="md:w-1/2 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-[#38b2ac] mb-2 text-left">Beta Image 1</h3>
+                    <p class="text-gray-300 text-left text-sm">This is the first image placeholder for Project Beta.</p>
+                </div>
             </div>
-            <!-- Bottom Right Container -->
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="md:w-1/2"></div>
-                <div class="md:w-1/2 bg-white/10 rounded-lg shadow p-8 min-h-[300px] flex flex-col items-center justify-center transform md:translate-y-8">
-                    <h3 class="text-2xl font-bold text-[#38b2ac] mb-4 text-center">Beta Image 2</h3>
-                    <div class="w-full h-40 bg-gray-600 rounded-lg mb-4 overflow-hidden">
+            <!-- Bottom Right Container: text left, image right -->
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2 flex flex-col justify-center order-2 md:order-1">
+                    <h3 class="text-2xl font-bold text-[#38b2ac] mb-2 text-left">Beta Image 2</h3>
+                    <p class="text-gray-300 text-left text-sm">This is the second image placeholder for Project Beta.</p>
+                </div>
+                <div class="md:w-1/2 bg-white/10 rounded-lg shadow p-8 min-h-[220px] flex items-center justify-center order-1 md:order-2 transform md:translate-y-8">
+                    <div class="w-full h-40 bg-gray-600 rounded-lg overflow-hidden">
                         <img src="https://via.placeholder.com/400x200/4A5568/38B2AC?text=Beta+Image+2" alt="Beta 2" class="w-full h-full object-cover" />
                     </div>
-                    <p class="text-gray-300 text-center text-sm">This is the second image placeholder for Project Beta.</p>
                 </div>
             </div>
         </div>
@@ -66,7 +68,16 @@
             Back to Home
         </a>
     </div>
-
+    <footer class="bg-gray-800/95 border-t border-white/10 text-gray-200 mt-12">
+        <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm">&copy; 2025 Your Name. All rights reserved.</div>
+            <div class="flex gap-4 justify-center mt-4">
+                <button class="boton-elegante">Privacy</button>
+                <button class="boton-elegante">Terms</button>
+                <button class="boton-elegante">Contact</button>
+            </div>
+        </div>
+    </footer>
     <script src="js/script.js"></script>
 </body>
 </html>

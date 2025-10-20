@@ -41,6 +41,59 @@ main {
     padding: 20px;
 }
 
+/* Social Card 1x3 Layout for Project Alpha */
+.main {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  transition: 0.4s ease-in-out, 0.2s background-color ease-in-out,
+    0.2s background-image ease-in-out;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.card svg {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(56, 178, 172, 0.3);
+  background: #38b2ac;
+}
+
+.card:hover svg.instagram,
+.card:hover svg.twitter,
+.card:hover svg.dribble {
+  opacity: 1;
+  fill: #fff;
+}
+
+.text {
+  font-size: 0.9em;
+  color: #38b2ac;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-top: 0.5em;
+}
+
 footer {
     text-align: center;
     padding: 10px 0;
@@ -49,4 +102,142 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+
+/* Elegant Footer Button */
+.boton-elegante {
+  padding: 7px 18px;
+  border: 2px solid #2c2c2c;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.4s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.boton-elegante::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+
+.boton-elegante:hover::after {
+  transform: scale(4);
+}
+
+.boton-elegante:hover {
+  border-color: #666666;
+  background: #292929;
+}
+
+/* Hide social cards by default, show only on hover */
+.project-alpha-social .alpha-social-cards {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.project-alpha-social:hover .alpha-social-cards {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.project-alpha-social .alpha-hover-text {
+  display: block;
+  font-size: 1.1em;
+  color: #38b2ac;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-align: center;
+  transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1);
+  opacity: 1;
+}
+
+.project-alpha-social:hover .alpha-hover-text {
+  opacity: 0;
+  transition: opacity 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Project Alpha: 1x7 Vertical Pop-up Text Buttons */
+.project-alpha-social {
+  min-height: 420px; /* Taller to fit 7 items */
+}
+
+.project-alpha-social .main.alpha-social-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.9) translateY(30px);
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  width: 100%;
+}
+
+.project-alpha-social:hover .main.alpha-social-cards {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* Style for each text button */
+.card-text {
+  width: 80%;
+  padding: 0.75em 0;
+  background: rgba(255,255,255,0.7);
+  color: #222;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.05em;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(56,178,172,0.08);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: 
+    opacity 0.3s cubic-bezier(0.4,0,0.2,1),
+    transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Staggered pop-up animation for each item */
+.project-alpha-social:hover .card-text {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.project-alpha-social:hover .card-text:nth-child(1) { transition-delay: 0.05s; }
+.project-alpha-social:hover .card-text:nth-child(2) { transition-delay: 0.12s; }
+.project-alpha-social:hover .card-text:nth-child(3) { transition-delay: 0.19s; }
+.project-alpha-social:hover .card-text:nth-child(4) { transition-delay: 0.26s; }
+.project-alpha-social:hover .card-text:nth-child(5) { transition-delay: 0.33s; }
+.project-alpha-social:hover .card-text:nth-child(6) { transition-delay: 0.40s; }
+.project-alpha-social:hover .card-text:nth-child(7) { transition-delay: 0.47s; }
+
+.card-text:hover {
+  background: #38b2ac;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(56,178,172,0.18);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
