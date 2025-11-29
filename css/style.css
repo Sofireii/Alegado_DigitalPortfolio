@@ -4,7 +4,6 @@
 @tailwind utilities;
 
 /* You can add your custom styles below */
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -234,6 +233,81 @@ footer {
 .project-alpha-social:hover .card-text:nth-child(5) { transition-delay: 0.33s; }
 .project-alpha-social:hover .card-text:nth-child(6) { transition-delay: 0.40s; }
 .project-alpha-social:hover .card-text:nth-child(7) { transition-delay: 0.47s; }
+
+.card-text:hover {
+  background: #38b2ac;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(56,178,172,0.18);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Project Options Container Styles */
+.project-options-container {
+  min-height: 420px;
+}
+
+.project-options-container .main.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.9) translateY(30px);
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  width: 100%;
+}
+
+.project-options-container:hover .main.options-list {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+.project-options-container .options-hover-text {
+  display: block;
+  font-size: 1.1em;
+  color: #38b2ac;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-align: center;
+  transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1);
+  opacity: 1;
+}
+
+.project-options-container:hover .options-hover-text {
+  opacity: 0;
+  transition: opacity 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.card-text {
+  width: 80%;
+  padding: 0.75em 0;
+  background: rgba(255,255,255,0.7);
+  color: #222;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.05em;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(56,178,172,0.08);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: 
+    opacity 0.3s cubic-bezier(0.4,0,0.2,1),
+    transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Staggered pop-up animation for each item */
+.project-options-container:hover .card-text { opacity: 1; transform: translateY(0) scale(1);}
+.project-options-container:hover .card-text:nth-child(1) { transition-delay: 0.05s; }
+.project-options-container:hover .card-text:nth-child(2) { transition-delay: 0.12s; }
+.project-options-container:hover .card-text:nth-child(3) { transition-delay: 0.19s; }
+.project-options-container:hover .card-text:nth-child(4) { transition-delay: 0.26s; }
+.project-options-container:hover .card-text:nth-child(5) { transition-delay: 0.33s; }
+.project-options-container:hover .card-text:nth-child(6) { transition-delay: 0.40s; }
+.project-options-container:hover .card-text:nth-child(7) { transition-delay: 0.47s; }
 
 .card-text:hover {
   background: #38b2ac;

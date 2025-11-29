@@ -18,6 +18,7 @@
             overflow: hidden;
             z-index: 0;
         }
+
         .parallax .layer {
             position: absolute;
             width: 100%;
@@ -26,12 +27,16 @@
             background-size: cover;
             will-change: transform;
         }
+
+        /* Parallax layer images */
         .parallax .layer:nth-of-type(1) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/1.svg'); }
         .parallax .layer:nth-of-type(2) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/2.svg'); }
         .parallax .layer:nth-of-type(3) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/3.svg'); }
         .parallax .layer:nth-of-type(4) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/4.svg'); }
         .parallax .layer:nth-of-type(5) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/4.svg'); }
         .parallax .layer:nth-of-type(6) { background-image: url('https://gist.githubusercontent.com/mondenoir/5395b6e7d9445c3a0fc82e6ece97268c/raw/bca5c0c6397e38d79b5af9e88f78f0aa7b515b94/img-1.svg'); }
+
+        /* Hero content on top of parallax */
         .hero-section {
             position: relative;
             min-height: 100vh;
@@ -41,16 +46,10 @@
             justify-content: center;
             padding: 2rem;
         }
-        .layer { transition: transform 0.05s ease-out; }
 
-        /* Optional: make card-text visibly clickable if not already styled */
-        .card-text {
-            cursor: pointer;
-            user-select: none;
-        }
-        .card-text:focus {
-            outline: 2px solid #38b2ac;
-            outline-offset: 2px;
+        /* Smooth parallax transition */
+        .layer {
+            transition: transform 0.05s ease-out;
         }
     </style>
 </head>
@@ -104,39 +103,38 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col md:flex-row gap-8">
                 <!-- Project Alpha -->
-                <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container">
+                <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer project-options-container">
                     <div class="options-hover-text text mt-6">HOVER FOR OPTIONS</div>
                     <div class="main options-list flex-col" style="position:relative; width:100%;">
-                        <!-- Inline navigation -->
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Testing.html'">Option 1</div>
+                        <div class="card-text">Option 1</div>
                     </div>
                 </div>
                 
                 <!-- Project Beta -->
-                <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container">
+                <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer project-options-container">
                     <div class="options-hover-text text mt-6">HOVER FOR OPTIONS</div>
                     <div class="main options-list flex-col" style="position:relative; width:100%;">
-                        <div class="card-text" tabindex="0" onclick="window.location.href='ProjectBeta.html'">Option 1</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Option2.html'">Option 2</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Option3.html'">Option 3</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Option4.html'">Option 4</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Option5.html'">Option 5</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Option6.html'">Option 6</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Option7.html'">Option 7</div>
+                        <div class="card-text">Option 1</div>
+                        <div class="card-text">Option 2</div>
+                        <div class="card-text">Option 3</div>
+                        <div class="card-text">Option 4</div>
+                        <div class="card-text">Option 5</div>
+                        <div class="card-text">Option 6</div>
+                        <div class="card-text">Option 7</div>
                     </div>
                 </div>
                 
                 <!-- Project Gamma -->
-                <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container">
+                <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 cursor-pointer project-options-container">
                     <div class="options-hover-text text mt-6">HOVER FOR OPTIONS</div>
                     <div class="main options-list flex-col" style="position:relative; width:100%;">
-                        <div class="card-text" tabindex="0" onclick="window.location.href='ProjectGamma.html'">Option 1</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/GammaOption2.html'">Option 2</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/GammaOption3.html'">Option 3</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/GammaOption4.html'">Option 4</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/GammaOption5.html'">Option 5</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/GammaOption6.html'">Option 6</div>
-                        <div class="card-text" tabindex="0" onclick="window.location.href='Container1/GammaOption7.html'">Option 7</div>
+                        <div class="card-text">Option 1</div>
+                        <div class="card-text">Option 2</div>
+                        <div class="card-text">Option 3</div>
+                        <div class="card-text">Option 4</div>
+                        <div class="card-text">Option 5</div>
+                        <div class="card-text">Option 6</div>
+                        <div class="card-text">Option 7</div>
                     </div>
                 </div>
             </div>
