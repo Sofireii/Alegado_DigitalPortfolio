@@ -7,85 +7,111 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Parallax container */
-        .parallax {
+        /* hide old parallax */
+        .parallax { display: none !important; }
+
+        /* default (fallback) hero background color while loader runs */
+        .hero-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            list-style-type: none;
-            overflow: hidden;
             z-index: 0;
+            background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), #333;
+            background-attachment: fixed;
+            will-change: transform;
+            background-size: cover;
+            background-position: center;
         }
-        .parallax .layer {
+
+        .hero-section { position: relative; min-height: 100vh; z-index: 10; display:flex; align-items:center; justify-content:center; padding:2rem; }
+        .card-text { cursor:pointer; user-select:none; }
+        .hero-title { color:#fff; font-size:clamp(4rem,10vw,10rem); font-weight:800; text-align:center; text-shadow:0 6px 18px rgba(0,0,0,0.7); margin:0; }
+        .hero-subtitle { 
+            color:#fff; 
+            display:inline-block; 
+            margin-top:.6rem; 
+            padding:.5rem 1rem; 
+            border:3px solid rgba(255,255,255,0.12); 
+            text-transform:uppercase; 
+            letter-spacing:.15em; 
+            font-weight:700;
+            font-size:clamp(1.2rem,3vw,2rem);
+        }
+
+        /* Project container with background image */
+        .project-options-container {
+            position: relative;
+            background-size: cover !important;
+            background-position: center top !important;
+            overflow: hidden;
+            width: 260px !important;
+            height: 260px !important;
+            flex: 0 0 auto !important;
+        }
+
+        /* Overlay - clear by default, blurred on hover */
+        .project-options-container::before {
+            content: '';
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-position: center center;
-            background-size: cover;
-            will-change: transform;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            transition: background 0.4s ease, backdrop-filter 0.4s ease;
+            z-index: 1;
+            pointer-events: none;
         }
-        .parallax .layer:nth-of-type(1) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/1.svg'); }
-        .parallax .layer:nth-of-type(2) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/2.svg'); }
-        .parallax .layer:nth-of-type(3) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/3.svg'); }
-        .parallax .layer:nth-of-type(4) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/4.svg'); }
-        .parallax .layer:nth-of-type(5) { background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/4.svg'); }
-        .parallax .layer:nth-of-type(6) { background-image: url('https://gist.githubusercontent.com/mondenoir/5395b6e7d9445c3a0fc82e6ece97268c/raw/bca5c0c6397e38d79b5af9e88f78f0aa7b515b94/img-1.svg'); }
-        .hero-section {
-            position: relative;
-            min-height: 100vh;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        .layer { transition: transform 0.05s ease-out; }
 
-        /* Optional: make card-text visibly clickable if not already styled */
-        .card-text {
-            cursor: pointer;
-            user-select: none;
+        /* Add blur on hover */
+        .project-options-container:hover::before {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
-        .card-text:focus {
-            outline: 2px solid #38b2ac;
-            outline-offset: 2px;
+
+        /* Ensure content is above the overlay */
+        .project-options-container > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Make options-hover-text white */
+        .options-hover-text {
+            color: #ffffff !important;
+        }
+
+        /* Wrapper for title + container */
+        .project-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .project-options-container {
+                width: 86% !important;
+                height: auto !important;
+                min-height: 220px;
+            }
         }
     </style>
 </head>
 <body class="relative overflow-x-hidden">
-    <!-- Fixed Parallax Background -->
-    <ul class="parallax">
-        <li class="layer"></li>
-        <li class="layer"></li>
-        <li class="layer"></li>
-        <li class="layer"></li>
-        <li class="layer"></li>
-        <li class="layer"></li>
-    </ul>
+    <!-- Dark static background (Apo.jpg) -->
+    <div class="hero-bg" aria-hidden="true"></div>
 
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-12">
-            <!-- Left: Text -->
-            <div class="md:w-1/2 w-full flex flex-col items-center md:items-end">
-                <div class="max-w-md text-center md:text-right">
-                    <h1 class="text-4xl md:text-5xl font-bold text-[#38b2ac] mb-6 font-serif leading-tight">
-                        Lorem Ipsum dolor sit amet
-                    </h1>
-                    <p class="text-white text-lg md:text-xl leading-relaxed">
-                        Write a paragraph that talks about your brand and what makes you unique in the industry.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Right: Image Circle -->
-            <div class="md:w-1/2 w-full flex justify-center md:justify-start items-center">
-                <div class="w-72 h-72 md:w-96 md:h-96 bg-gray-700/50 backdrop-blur-sm flex items-center justify-center rounded-full overflow-hidden shadow-2xl border-4 border-[#38b2ac]/30">
-                    <img src="your-image.jpg" alt="Portfolio" class="object-cover w-full h-full" />
-                </div>
-            </div>
+    <section class="hero-section" role="banner" aria-label="Hero">
+        <div class="max-w-6xl w-full text-center">
+            <h1 class="hero-title">THE LUMADS</h1>
+            <div style="height:10px"></div>
+            <div class="hero-subtitle">Indigenous People of Mindanao</div>
         </div>
     </section>
     
@@ -100,30 +126,76 @@
     </div>
     
     <!-- Info Containers Section -->
-    <div id="info-containers" class="w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 relative z-20 py-20">
+    <div id="info-containers" class="w-full relative z-20 py-20" style="background-color: #01162b;">
       <div class="max-w-6xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row gap-8">
+        <!-- First Row -->
+        <div class="info-cards-row flex flex-col md:flex-row gap-8 mb-8 justify-center">
           <!-- Project Alpha -->
-          <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container">
-            <div class="options-hover-text text mt-6">HOVER FOR OPTIONS</div>
-            <div class="main options-list flex-col" style="position:relative; width:100%;">
-              <div class="card-text" tabindex="0" onclick="window.location.href='Container1/Testing.html'">Open Project Alpha</div>
+          <div class="project-wrapper">
+            <h3 class="text-white text-2xl font-bold mb-4 text-center">T'boli Tribe</h3>
+            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Tboli.jpeg');">
+              <div class="options-hover-text text mt-6"></div>
+              <div class="main options-list flex-col" style="position:relative; width:100%;">
+                <div class="card-text" tabindex="0" onclick="window.location.href='Container1/ProjectAlpha.html'">Click for more</div>
+              </div>
             </div>
           </div>
 
-          <!-- Project Beta (single option) -->
-          <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container">
-            <div class="options-hover-text text mt-6">HOVER FOR OPTIONS</div>
-            <div class="main options-list flex-col" style="position:relative; width:100%;">
-              <div class="card-text" tabindex="0" onclick="window.location.href='ProjectBeta.html'">Open Project Beta</div>
+          <!-- Project Beta -->
+          <div class="project-wrapper">
+            <h3 class="text-white text-2xl font-bold mb-4 text-center">Manobo Tribe</h3>
+            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Manobo.webp');">
+              <div class="options-hover-text text mt-6"></div>
+              <div class="main options-list flex-col" style="position:relative; width:100%;">
+                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectBeta.html'">Open Project Beta</div>
+              </div>
             </div>
           </div>
 
-          <!-- Project Gamma (single option) -->
-          <div class="bg-white/10 rounded-lg shadow p-8 min-h-[420px] flex-1 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container">
-            <div class="options-hover-text text mt-6">HOVER FOR OPTIONS</div>
-            <div class="main options-list flex-col" style="position:relative; width:100%;">
-              <div class="card-text" tabindex="0" onclick="window.location.href='ProjectGamma.html'">Open Project Gamma</div>
+          <!-- Project Gamma -->
+          <div class="project-wrapper">
+            <h3 class="text-white text-2xl font-bold mb-4 text-center">Bagobos Tribe</h3>
+            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Bagobos.jpg');">
+              <div class="options-hover-text text mt-6"></div>
+              <div class="main options-list flex-col" style="position:relative; width:100%;">
+                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectGamma.html'">Open Project Gamma</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="info-cards-row flex flex-col md:flex-row gap-8 justify-center">
+          <!-- Project Delta -->
+          <div class="project-wrapper">
+            <h3 class="text-white text-2xl font-bold mb-4 text-center">Bilaan/B'laan Tribe</h3>
+            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Bilaan.jpg');">
+              <div class="options-hover-text text mt-6"></div>
+              <div class="main options-list flex-col" style="position:relative; width:100%;">
+                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectDelta.html'">Open Project Delta</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Epsilon -->
+          <div class="project-wrapper">
+            <h3 class="text-white text-2xl font-bold mb-4 text-center">Bukidnon Tribe</h3>
+            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Bukidnon.jpg');">
+              <div class="options-hover-text text mt-6"></div>
+              <div class="main options-list flex-col" style="position:relative; width:100%;">
+                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectEpsilon.html'">Open Project Epsilon</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Zeta -->
+          <div class="project-wrapper">
+            <h3 class="text-white text-2xl font-bold mb-4 text-center">Mandaya Tribe</h3>
+            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Mandaya.avif');">
+              <div class="options-hover-text text mt-6"></div>
+              <div class="main options-list flex-col" style="position:relative; width:100%;">
+                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectZeta.html'">Open Project Zeta</div>
+              </div>
             </div>
           </div>
         </div>
@@ -175,22 +247,45 @@
         </div>
     </footer>
 
-    <!-- Parallax scroll script -->
+    <!-- small loader script: tries multiple relative paths and sets hero background if image loads -->
     <script>
-        const layers = document.querySelectorAll('.layer');
+      (function(){
+        const bg = document.querySelector('.hero-bg');
+        const candidates = [
+          'Container1/Assets/Apo.jpg',
+          'Container1/Assets/apo.jpg',
+          'Assets/Apo.jpg',
+          'assets/Apo.jpg',
+          './Container1/Assets/Apo.jpg',
+          './Assets/Apo.jpg'
+        ];
 
-        function parallax() {
-            const y = window.scrollY;
-            // Only apply parallax in the first viewport height
-            if (y < window.innerHeight) {
-                for (let i = 1; i < layers.length; i++) {
-                    const speed = (i * 0.15);
-                    layers[layers.length - i].style.transform = `translateY(${speed * y}px)`;
-                }
-            }
+        function setBackground(url){
+          bg.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('" + url + "')";
+          bg.style.backgroundSize = 'cover';
+          bg.style.backgroundPosition = 'center';
         }
 
-        window.addEventListener('scroll', parallax, false);
+        function tryNext(i){
+          if(i >= candidates.length){
+            console.warn('Hero image not found. Tried:', candidates);
+            return;
+          }
+          const src = candidates[i];
+          const img = new Image();
+          img.onload = function(){
+            console.log('Loaded hero image:', src);
+            setBackground(src);
+          };
+          img.onerror = function(){
+            // try next path
+            tryNext(i+1);
+          };
+          img.src = src;
+        }
+
+        tryNext(0);
+      })();
     </script>
 </body>
 </html>
