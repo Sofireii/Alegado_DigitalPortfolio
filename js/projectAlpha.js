@@ -59,7 +59,7 @@ targets.forEach(sec => observer.observe(sec));
 
 // History Carousel Functionality
 let currentSlide = 1;
-const totalSlides = 10;
+const totalSlides = 15;
 const slides = document.querySelectorAll('.history-slide');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
@@ -117,7 +117,7 @@ showSlide(currentSlide);
 
 // Social Carousel Functionality
 let currentSocialSlide = 1;
-const totalSocialSlides = 4;
+const totalSocialSlides = 7;
 const socialSlides = document.querySelectorAll('.social-slide');
 const prevSocialBtn = document.getElementById('prevSocialBtn');
 const nextSocialBtn = document.getElementById('nextSocialBtn');
@@ -225,7 +225,7 @@ showEconomicSlide(currentEconomicSlide);
 
 // Culture Carousel
 let currentCultureSlide = 1;
-const totalCultureSlides = 7;
+const totalCultureSlides = 8;
 const cultureSlides = document.querySelectorAll('.culture-slide');
 const cultureImages = document.querySelectorAll('.culture-image');
 const prevCultureBtn = document.getElementById('prevCultureBtn');
@@ -253,7 +253,7 @@ showCultureSlide(currentCultureSlide);
 
 // Religion Carousel
 let currentReligionSlide = 1;
-const totalReligionSlides = 7;
+const totalReligionSlides = 14;
 const religionSlides = document.querySelectorAll('.religion-slide');
 const prevReligionBtn = document.getElementById('prevReligionBtn');
 const nextReligionBtn = document.getElementById('nextReligionBtn');
@@ -278,7 +278,7 @@ showReligionSlide(currentReligionSlide);
 
 // Issues Carousel
 let currentIssuesSlide = 1;
-const totalIssuesSlides = 5;
+const totalIssuesSlides = 6;
 const issuesSlides = document.querySelectorAll('.issues-slide');
 const prevIssuesBtn = document.getElementById('prevIssuesBtn');
 const nextIssuesBtn = document.getElementById('nextIssuesBtn');
