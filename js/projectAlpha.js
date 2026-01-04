@@ -59,7 +59,7 @@ targets.forEach(sec => observer.observe(sec));
 
 // History Carousel Functionality
 let currentSlide = 1;
-const totalSlides = 6;
+const totalSlides = 10;
 const slides = document.querySelectorAll('.history-slide');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
@@ -117,7 +117,7 @@ showSlide(currentSlide);
 
 // Social Carousel Functionality
 let currentSocialSlide = 1;
-const totalSocialSlides = 5;
+const totalSocialSlides = 4;
 const socialSlides = document.querySelectorAll('.social-slide');
 const prevSocialBtn = document.getElementById('prevSocialBtn');
 const nextSocialBtn = document.getElementById('nextSocialBtn');
@@ -175,7 +175,7 @@ showSocialSlide(currentSocialSlide);
 
 // Political Carousel
 let currentPoliticalSlide = 1;
-const totalPoliticalSlides = 6;
+const totalPoliticalSlides = 5;
 const politicalSlides = document.querySelectorAll('.political-slide');
 const prevPoliticalBtn = document.getElementById('prevPoliticalBtn');
 const nextPoliticalBtn = document.getElementById('nextPoliticalBtn');
@@ -275,3 +275,28 @@ function showReligionSlide(n) {
 prevReligionBtn.addEventListener('click', () => { currentReligionSlide--; showReligionSlide(currentReligionSlide); });
 nextReligionBtn.addEventListener('click', () => { currentReligionSlide++; showReligionSlide(currentReligionSlide); });
 showReligionSlide(currentReligionSlide);
+
+// Issues Carousel
+let currentIssuesSlide = 1;
+const totalIssuesSlides = 5;
+const issuesSlides = document.querySelectorAll('.issues-slide');
+const prevIssuesBtn = document.getElementById('prevIssuesBtn');
+const nextIssuesBtn = document.getElementById('nextIssuesBtn');
+const issuesSlideIndicator = document.getElementById('issuesSlideIndicator');
+
+const issuesStyle = document.createElement('style');
+issuesStyle.textContent = `.issues-slide { display: none; opacity: 0; transition: opacity 0.5s; } .issues-slide.active-issues-slide { display: block; opacity: 1; } #prevIssuesBtn:hover, #nextIssuesBtn:hover { background: #e55a2b !important; transform: scale(1.05); } #prevIssuesBtn:disabled, #nextIssuesBtn:disabled { background: #ccc !important; cursor: not-allowed; opacity: 0.6; }`;
+document.head.appendChild(issuesStyle);
+
+function showIssuesSlide(n) {
+  if (n > totalIssuesSlides) currentIssuesSlide = totalIssuesSlides;
+  if (n < 1) currentIssuesSlide = 1;
+  issuesSlides.forEach(slide => slide.classList.remove('active-issues-slide'));
+  issuesSlides[currentIssuesSlide - 1].classList.add('active-issues-slide');
+  issuesSlideIndicator.textContent = `${currentIssuesSlide} / ${totalIssuesSlides}`;
+  prevIssuesBtn.disabled = (currentIssuesSlide === 1);
+  nextIssuesBtn.disabled = (currentIssuesSlide === totalIssuesSlides);
+}
+prevIssuesBtn.addEventListener('click', () => { currentIssuesSlide--; showIssuesSlide(currentIssuesSlide); });
+nextIssuesBtn.addEventListener('click', () => { currentIssuesSlide++; showIssuesSlide(currentIssuesSlide); });
+showIssuesSlide(currentIssuesSlide);
