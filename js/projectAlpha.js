@@ -1,37 +1,13 @@
-// Sidebar toggle script
+// Sidebar toggle drawer functionality
 const sidebar = document.querySelector(".sidebar");
-const closeBtn = document.querySelector("#btn");
-if (closeBtn) {
-  closeBtn.addEventListener("click", () => {
+const toggleBtn = document.querySelector("#btn");
+
+// Toggle sidebar on button click
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
   });
 }
-
-// Sidebar transparency toggle on scroll
-const heroSection = document.querySelector('#hero');
-
-function updateSidebarVisibility() {
-  const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-  const scrollPosition = window.scrollY;
-  
-  // Hide sidebar only when in hero section, show everywhere else
-  if (scrollPosition < heroBottom - 100) {
-    sidebar.classList.add('transparent');
-    sidebar.classList.remove('visible');
-  } else {
-    sidebar.classList.remove('transparent');
-    sidebar.classList.add('visible');
-  }
-}
-
-// Start with transparent sidebar
-sidebar.classList.add('transparent');
-
-// Observe scroll position
-window.addEventListener('scroll', updateSidebarVisibility);
-
-// Also check on load
-window.addEventListener('load', updateSidebarVisibility);
 
 // Smooth scroll + active link handling for sections
 const navLinks = Array.from(document.querySelectorAll(".sidebar .nav-list a"));

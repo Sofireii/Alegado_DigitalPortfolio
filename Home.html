@@ -12,43 +12,77 @@
     /* Optional smooth scroll */
     html { scroll-behavior: smooth; }
     
-    /* Sidebar expansion on hover - OVERRIDE tour.css */
+    /* Sidebar - start collapsed */
     .sidebar {
       transition: all 0.4s ease !important;
       z-index: 1000;
       position: fixed;
-      width: 64px !important;
+      width: 78px !important;
+      left: -78px !important;
     }
     
-    /* Transparent sidebar state for hero section */
-    .sidebar.transparent {
-      opacity: 0 !important;
-      pointer-events: none !important;
+    /* Show sidebar when open */
+    .sidebar.open {
+      left: 0 !important;
     }
     
-    .sidebar.visible {
-      opacity: 1 !important;
-      pointer-events: auto !important;
+    /* Toggle button - always visible, completely independent */
+    .sidebar-toggle {
+      position: fixed;
+      left: 0;
+      top: 20px;
+      width: 50px;
+      height: 50px;
+      background: rgba(17, 24, 39, 0.95);
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      transition: left 0.4s ease;
+      z-index: 1002;
+    }
+    
+    /* Move button when sidebar is open */
+    .sidebar.open ~ .sidebar-toggle,
+    body:has(.sidebar.open) .sidebar-toggle {
+      left: 78px;
+    }
+    
+    /* Move button when sidebar is open and hovering (expanded) */
+    .sidebar.open:hover ~ .sidebar-toggle,
+    body:has(.sidebar.open:hover) .sidebar-toggle {
+      left: 260px;
+    }
+    
+    .sidebar-toggle #btn {
+      font-size: 28px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    /* Rotate arrow when sidebar is open */
+    .sidebar.open ~ .sidebar-toggle #btn,
+    body:has(.sidebar.open) .sidebar-toggle #btn {
+      transform: rotate(180deg);
     }
     
     .sidebar:hover {
       width: 260px !important;
     }
     
-    /* Fix logo-details layout */
-    .sidebar .logo-details {
-      justify-content: center !important;
-      padding: 0 !important;
-      overflow: hidden;
+    /* Remove hover expansion when closed */
+    .sidebar:not(.open):hover {
+      width: 78px !important;
+      left: -78px !important;
     }
     
-    .sidebar:hover .logo-details {
-      justify-content: space-between !important;
-      padding: 0 12px !important;
-    }
-    
-    .sidebar .logo-details #btn {
-      margin: 0 !important;
+    /* Adjust nav-list spacing */
+    .sidebar .nav-list {
+      margin-top: 20px;
+      padding-top: 10px;
     }
     
     /* Force show section names on hover - OVERRIDE tour.css */
@@ -64,7 +98,7 @@
       left: -999px;
     }
     
-    .sidebar:hover li a .links_name {
+    .sidebar.open:hover li a .links_name {
       opacity: 1 !important;
       pointer-events: auto;
       position: static !important;
@@ -82,6 +116,11 @@
     }
     
     .sidebar:hover li a {
+      justify-content: flex-start !important;
+      padding-left: 12px !important;
+    }
+    
+    .sidebar.open:hover li a {
       justify-content: flex-start !important;
       padding-left: 12px !important;
     }
@@ -119,6 +158,10 @@
       background: linear-gradient(90deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 107, 53, 0.05) 100%) !important;
     }
     
+    .sidebar.open:hover .nav-list li:hover {
+      background: linear-gradient(90deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 107, 53, 0.05) 100%) !important;
+    }
+    
     .sidebar .nav-list li a {
       transition: all 0.3s ease;
     }
@@ -145,6 +188,17 @@
       pointer-events: none !important;
     }
     
+    .sidebar.open:hover .nav-list li .tooltip {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    
+    /* Hide tooltips when sidebar is closed */
+    .sidebar:not(.open) .nav-list li .tooltip {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    
     /* Logo name animation */
     .sidebar .logo_name {
       display: block !important;
@@ -159,7 +213,7 @@
       left: -999px;
     }
     
-    .sidebar:hover .logo_name {
+    .sidebar.open .logo_name {
       opacity: 1 !important;
       pointer-events: auto;
       position: static !important;
@@ -168,12 +222,13 @@
   </style>
 </head>
 <body>
+  <!-- Toggle button - always visible, outside sidebar -->
+  <div class="sidebar-toggle">
+    <i class='bx bx-chevron-right' id="btn" aria-label="Toggle sidebar"></i>
+  </div>
+  
   <!-- Responsive Sidebar (CodingLab style) -->
   <div class="sidebar">
-    <div class="logo-details">
-      <div class="logo_name">Portfolio</div>
-      <i class='bx bx-menu' id="btn" aria-label="Toggle sidebar"></i>
-    </div>
     <ul class="nav-list">
       <!-- Navigation buttons for page sections -->
       <li>
@@ -266,7 +321,7 @@
             <div class="history-slide active-slide" data-slide="1">
               <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
                 <b style="font-size: 1.4rem; color: #ff6b35;">1. The Origin of the Term (T'boli)</b><br><br>
-                <p style="margin-bottom: 1.5rem;">The name T’boli (also spelled Tboli, Tiboli, or Tagabili) is derived from their own language and identity. While there are different scholarly interpretations, many ethnographers suggest that the term is connected to the words tau (people) and bilil (hill or mountain slope), broadly meaning “people of the uplands” or “mountain people.” The spelling Tboli is increasingly preferred by the community itself, as it aligns with their linguistic tradition and self-identification.</p>
+                <p style="margin-bottom: 1.5rem;">The name T'boli (also spelled Tboli, Tiboli, or Tagabili) is derived from their own language and identity. While there are different scholarly interpretations, many ethnographers suggest that the term is connected to the words tau (people) and bilil (hill or mountain slope), broadly meaning "people of the uplands" or "mountain people." The spelling Tboli is increasingly preferred by the community itself, as it aligns with their linguistic tradition and self-identification.</p>
               </div>
             </div>
 
