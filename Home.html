@@ -1,291 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Digital Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* hide old parallax */
-        .parallax { display: none !important; }
-
-        /* default (fallback) hero background color while loader runs */
-        .hero-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 0;
-            background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), #333;
-            background-attachment: fixed;
-            will-change: transform;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-section { position: relative; min-height: 100vh; z-index: 10; display:flex; align-items:center; justify-content:center; padding:2rem; }
-        .card-text { cursor:pointer; user-select:none; }
-        .hero-title { color:#fff; font-size:clamp(4rem,10vw,10rem); font-weight:800; text-align:center; text-shadow:0 6px 18px rgba(0,0,0,0.7); margin:0; }
-        .hero-subtitle { 
-            color:#fff; 
-            display:inline-block; 
-            margin-top:.6rem; 
-            padding:.5rem 1rem; 
-            border:3px solid rgba(255,255,255,0.12); 
-            text-transform:uppercase; 
-            letter-spacing:.15em; 
-            font-weight:700;
-            font-size:clamp(1.2rem,3vw,2rem);
-        }
-
-        /* Project container with background image */
-        .project-options-container {
-            position: relative;
-            background-size: cover !important;
-            background-position: center top !important;
-            overflow: hidden;
-            width: 260px !important;
-            height: 260px !important;
-            flex: 0 0 auto !important;
-        }
-
-        /* Overlay - clear by default, blurred on hover */
-        .project-options-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0);
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
-            transition: background 0.4s ease, backdrop-filter 0.4s ease;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Add blur on hover */
-        .project-options-container:hover::before {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        /* Ensure content is above the overlay */
-        .project-options-container > * {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Make options-hover-text white */
-        .options-hover-text {
-            color: #ffffff !important;
-        }
-
-        /* Wrapper for title + container */
-        .project-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 0 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .project-options-container {
-                width: 86% !important;
-                height: auto !important;
-                min-height: 220px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T'boli Tribe | Digital Portfolio</title>
+  <link rel="stylesheet" href="css/tour.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet">
+  <!-- Boxicons for sidebar icons -->
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    /* Optional smooth scroll */
+    html { scroll-behavior: smooth; }
+    
+    /* Sidebar expansion on hover - OVERRIDE tour.css */
+    .sidebar {
+      transition: all 0.4s ease !important;
+      z-index: 1000;
+      position: fixed;
+      width: 64px !important;
+    }
+    
+    .sidebar:hover {
+      width: 260px !important;
+    }
+    
+    /* Fix logo-details layout */
+    .sidebar .logo-details {
+      justify-content: center !important;
+      padding: 0 !important;
+      overflow: hidden;
+    }
+    
+    .sidebar:hover .logo-details {
+      justify-content: space-between !important;
+      padding: 0 12px !important;
+    }
+    
+    .sidebar .logo-details #btn {
+      margin: 0 !important;
+    }
+    
+    /* Force show section names on hover - OVERRIDE tour.css */
+    .sidebar li a .links_name {
+      display: block !important;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      white-space: nowrap;
+      font-weight: 500;
+      margin-left: 8px;
+      position: absolute;
+      left: -999px;
+    }
+    
+    .sidebar:hover li a .links_name {
+      opacity: 1 !important;
+      pointer-events: auto;
+      position: static !important;
+      left: auto !important;
+    }
+    
+    /* Ensure proper spacing for icons and text */
+    .sidebar li a {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      gap: 0 !important;
+      border-radius: 12px !important;
+    }
+    
+    .sidebar:hover li a {
+      justify-content: flex-start !important;
+      padding-left: 12px !important;
+    }
+    
+    .sidebar li a i {
+      min-width: 24px !important;
+      font-size: 20px !important;
+      flex-shrink: 0;
+    }
+    
+    /* Fix active/selected section shape when not hovering */
+    .sidebar li a.active,
+    .sidebar li a:hover {
+      background: rgba(99, 102, 241, 0.15) !important;
+      border-radius: 12px !important;
+    }
+    
+    .sidebar li a.active {
+      background: rgba(99, 102, 241, 0.25) !important;
+      box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.35), 0 6px 14px -6px rgba(0, 0, 0, 0.6) !important;
+    }
+    
+    /* Sidebar hover animations */
+    .sidebar .nav-list li {
+      transition: all 0.4s ease;
+      position: relative;
+    }
+    
+    .sidebar .nav-list li:hover {
+      background: transparent !important;
+      transform: translateX(5px);
+    }
+    
+    .sidebar:hover .nav-list li:hover {
+      background: linear-gradient(90deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 107, 53, 0.05) 100%) !important;
+    }
+    
+    .sidebar .nav-list li a {
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar .nav-list li:hover a {
+      color: #ff6b35 !important;
+    }
+    
+    .sidebar .nav-list li:hover i {
+      transform: scale(1.2) rotate(5deg);
+      color: #ff6b35 !important;
+    }
+    
+    .sidebar .nav-list li i {
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar .nav-list li .tooltip {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .sidebar:hover .nav-list li .tooltip {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    
+    /* Logo name animation */
+    .sidebar .logo_name {
+      display: block !important;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      position: absolute;
+      left: -999px;
+    }
+    
+    .sidebar:hover .logo_name {
+      opacity: 1 !important;
+      pointer-events: auto;
+      position: static !important;
+      left: auto !important;
+    }
+  </style>
 </head>
-<body class="relative overflow-x-hidden">
-    <!-- Dark static background (Apo.jpg) -->
-    <div class="hero-bg" aria-hidden="true"></div>
-
-    <!-- Hero Section -->
-    <section class="hero-section" role="banner" aria-label="Hero">
-        <div class="max-w-6xl w-full text-center">
-            <h1 class="hero-title">THE LUMADS</h1>
-            <div style="height:10px"></div>
-            <div class="hero-subtitle">Indigenous People of Mindanao</div>
-        </div>
-    </section>
-    
-    <!-- Bounce Down Button -->
-    <div class="fixed left-1/2 bottom-10 transform -translate-x-1/2 z-30">
-        <button onclick="document.getElementById('info-containers').scrollIntoView({behavior: 'smooth'})"
-            class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-2xl animate-bounce focus:outline-none border-2 border-blue-400 transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-            </svg>
-        </button>
+<body>
+  <!-- Responsive Sidebar (CodingLab style) -->
+  <div class="sidebar">
+    <div class="logo-details">
+      <div class="logo_name">Portfolio</div>
+      <i class='bx bx-menu' id="btn" aria-label="Toggle sidebar"></i>
     </div>
-    
-    <!-- Info Containers Section -->
-    <div id="info-containers" class="w-full relative z-20 py-20" style="background-color: #01162b;">
-      <div class="max-w-6xl mx-auto px-4">
-        <!-- First Row -->
-        <div class="info-cards-row flex flex-col md:flex-row gap-8 mb-8 justify-center">
-          <!-- Project Alpha -->
-          <div class="project-wrapper">
-            <h3 class="text-white text-2xl font-bold mb-4 text-center">T'boli Tribe</h3>
-            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Tboli.jpeg');">
-              <div class="options-hover-text text mt-6"></div>
-              <div class="main options-list flex-col" style="position:relative; width:100%;">
-                <div class="card-text" tabindex="0" onclick="window.location.href='Container1/ProjectAlpha.html'">Click for more</div>
+    <ul class="nav-list">
+      <!-- Navigation buttons for page sections -->
+      <li>
+        <a href="#hero">
+          <i class='bx bx-home' aria-hidden="true"></i>
+          <span class="links_name">Home</span>
+        </a>
+        <span class="tooltip">Home</span>
+      </li>
+      <li>
+        <a href="#story">
+          <i class='bx bx-book-open' aria-hidden="true"></i>
+          <span class="links_name">History</span>
+        </a>
+        <span class="tooltip">History</span>
+      </li>
+      <li>
+        <a href="#dates">
+          <i class='bx bx-group' aria-hidden="true"></i>
+          <span class="links_name">Social</span>
+        </a>
+        <span class="tooltip">Social</span>
+      </li>
+      <li>
+        <a href="#political">
+          <i class='bx bx-building' aria-hidden="true"></i>
+          <span class="links_name">Political</span>
+        </a>
+        <span class="tooltip">Political</span>
+      </li>
+      <li>
+        <a href="#economic">
+          <i class='bx bx-dollar-circle' aria-hidden="true"></i>
+          <span class="links_name">Economic</span>
+        </a>
+        <span class="tooltip">Economic</span>
+      </li>
+      <li>
+        <a href="#culture">
+          <i class='bx bx-palette' aria-hidden="true"></i>
+          <span class="links_name">Culture</span>
+        </a>
+        <span class="tooltip">Culture</span>
+      </li>
+      <li>
+        <a href="#religion">
+          <i class='bx bx-church' aria-hidden="true"></i>
+          <span class="links_name">Religion</span>
+        </a>
+        <span class="tooltip">Religion</span>
+      </li>
+      <li>
+        <a href="#pricing">
+          <i class='bx bx-info-circle' aria-hidden="true"></i>
+          <span class="links_name">Info</span>
+        </a>
+        <span class="tooltip">Info</span>
+      </li>
+      <li>
+        <a href="#contact">
+          <i class='bx bx-envelope' aria-hidden="true"></i>
+          <span class="links_name">Contact</span>
+        </a>
+        <span class="tooltip">Contact</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Wrap the rest of your page so it shifts with the sidebar -->
+  <section class="home-section">
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section" style="background-image: url('Container1/Assets/Backgroundtib.webp'); filter: grayscale(100%);">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>T'boli Tribe</h1>
+        <div class="subtitle"></div>
+        <div class="big-title">THE ORIGINS</div>
+      </div>
+    </section>
+
+    <!-- Section 2: History Carousel -->
+    <section id="story" class="story-section">
+      <h2 class="section-heading" style="color: #ff6b35; font-size: 3.5rem; margin-bottom: 2rem;">HISTORY</h2>
+      <div class="story-content" style="position: relative;">
+        <div class="story-text">
+          <!-- Carousel Container -->
+          <div class="history-carousel" style="position: relative; overflow: hidden; min-height: 500px;">
+            
+            <!-- Slide 1 -->
+            <div class="history-slide active-slide" data-slide="1">
+              <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
+                <b style="font-size: 1.4rem; color: #ff6b35;">1. The Origin of the Term (T'boli)</b><br><br>
+                <p style="margin-bottom: 1.5rem;">The term "T'boli" refers to an indigenous ethnolinguistic group native to South Cotabato, particularly around Lake Sebu. The name T'boli is believed to have originated from their ancestral language, where it broadly refers to "people living in harmony with nature." Historically, the spelling has varied (Tiboli, T'boli, Tboli), largely due to colonial documentation and external transcription, but T'boli is now the accepted and self-identified term used by the community.</p>
               </div>
             </div>
+
+            <!-- Slide 2 -->
+            <div class="history-slide" data-slide="2">
+              <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
+                <b style="font-size: 1.4rem; color: #ff6b35;">2. Origins</b><br><br>
+                <p style="margin-bottom: 1.5rem;">The T'boli are among the earliest inhabitants of Mindanao, predating Spanish colonization. Oral traditions trace their origins to ancestral spirits who emerged from the land, forests, and waters surrounding Lake Sebu. Their ancestry is deeply rooted in mythological narratives that emphasize their divine connection to nature and spiritual guardians. Unlike groups that trace lineage through migration from outside Mindanao, the T'boli consider themselves autochthonous—born of the land itself.</p>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="history-slide" data-slide="3">
+              <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
+                <b style="font-size: 1.4rem; color: #ff6b35;">3. Migration</b><br><br>
+                <p style="margin-bottom: 1.5rem;">The T'boli did not practice large-scale migration. Instead, their movement occurred internally, from one fertile area to another, based on environmental sustainability, soil productivity, and spiritual guidance. Migration patterns were dictated by farming cycles and forest regeneration rather than economic expansion. Over time, external pressures such as land grabbing, logging, and settlement by non-indigenous groups pushed many T'boli into more mountainous areas.</p>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="history-slide" data-slide="4">
+              <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
+                <b style="font-size: 1.4rem; color: #ff6b35;">4. Colonization and Resistance</b><br><br>
+                <p style="margin-bottom: 1.5rem;">During the Spanish period, the T'boli remained largely unconquered, as Spanish influence did not deeply penetrate the highland regions of South Cotabato. During the American occupation, administrative restructuring and land titling systems disrupted ancestral land ownership. The T'boli resisted colonization primarily through cultural preservation, maintaining their belief systems, governance, and social organization. Resistance was not always armed but took the form of refusal to assimilate and continued observance of traditional laws.</p>
+              </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="history-slide" data-slide="5">
+              <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
+                <b style="font-size: 1.4rem; color: #ff6b35;">5. Demography</b><br><br>
+                <p style="margin-bottom: 1.5rem;">Today, the T'boli population is estimated to be tens of thousands, primarily concentrated in Lake Sebu, T'boli Municipality, and surrounding areas of South Cotabato. Despite population growth, many T'boli communities remain marginalized due to limited access to education, healthcare, and economic opportunities. Urban migration has increased in recent decades, particularly among the youth.</p>
+              </div>
+            </div>
+
+            <!-- Slide 6 -->
+            <div class="history-slide" data-slide="6">
+              <div class="desc" style="font-size: 1.1rem; line-height: 2; text-align: justify;">
+                <b style="font-size: 1.4rem; color: #ff6b35;">6. Geography</b><br><br>
+                <p style="margin-bottom: 1.5rem;">The T'boli homeland consists of mountainous terrain, rainforests, and freshwater lakes, especially Lake Sebu. This geography shapes their agricultural practices, belief systems, and settlement patterns. The land is considered sacred, inhabited by spirits that must be respected. Forests, rivers, and mountains are not merely resources but living entities with spiritual significance.</p>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Project Beta -->
-          <div class="project-wrapper">
-            <h3 class="text-white text-2xl font-bold mb-4 text-center">Manobo Tribe</h3>
-            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Manobo.webp');">
-              <div class="options-hover-text text mt-6"></div>
-              <div class="main options-list flex-col" style="position:relative; width:100%;">
-                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectBeta.html'">Open Project Beta</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project Gamma -->
-          <div class="project-wrapper">
-            <h3 class="text-white text-2xl font-bold mb-4 text-center">Bagobos Tribe</h3>
-            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Bagobos.jpg');">
-              <div class="options-hover-text text mt-6"></div>
-              <div class="main options-list flex-col" style="position:relative; width:100%;">
-                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectGamma.html'">Open Project Gamma</div>
-              </div>
-            </div>
+          <!-- Carousel Navigation -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <button id="prevBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">← Previous</button>
+            <div id="slideIndicator" style="color: #d2dbeb; font-size: 1.2rem; font-weight: bold;">1 / 6</div>
+            <button id="nextBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">Next →</button>
           </div>
         </div>
+        <div class="story-image">
+          <div class="lens-overlay"></div>
+          <img src="Container1/Assets/add.jpg" alt="T'boli History">
+        </div>
+      </div>
+    </section>
 
-        <!-- Second Row -->
-        <div class="info-cards-row flex flex-col md:flex-row gap-8 justify-center">
-          <!-- Project Delta -->
-          <div class="project-wrapper">
-            <h3 class="text-white text-2xl font-bold mb-4 text-center">Bilaan/B'laan Tribe</h3>
-            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Bilaan.jpg');">
-              <div class="options-hover-text text mt-6"></div>
-              <div class="main options-list flex-col" style="position:relative; width:100%;">
-                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectDelta.html'">Open Project Delta</div>
-              </div>
+    <!-- Social Section -->
+    <section id="dates" class="story-section" style="background: linear-gradient(135deg, #01162b 0%, #00385a 100%);">
+      <h2 class="section-heading" style="color: #ff6b35; font-size: 3.5rem; margin-bottom: 2rem;">SOCIAL</h2>
+      <div class="story-content">
+        <div class="story-image">
+          <div class="lens-overlay"></div>
+          <img src="Container1/Assets/add.jpg" alt="T'boli Social">
+        </div>
+        <div class="story-text">
+          <div class="social-carousel" style="position: relative; overflow: hidden; min-height: 500px; display: flex; flex-direction: column; justify-content: space-between;">
+          
+          <!-- Slide 1 -->
+          <div class="social-slide active-social-slide" data-slide="1">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Special Relationship to Traditional Land</b><br><br>
+              <p style="margin-bottom: 1.5rem;">The T'boli view land as ancestral and sacred, not as private property. Every element of the environment—trees, rocks, water—is believed to have a spirit. Their farming, hunting, and gathering practices are governed by rituals seeking permission from these spirits, reinforcing sustainable land use.</p>
             </div>
           </div>
 
-          <!-- Project Epsilon -->
-          <div class="project-wrapper">
-            <h3 class="text-white text-2xl font-bold mb-4 text-center">Bukidnon Tribe</h3>
-            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Bukidnon.jpg');">
-              <div class="options-hover-text text mt-6"></div>
-              <div class="main options-list flex-col" style="position:relative; width:100%;">
-                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectEpsilon.html'">Open Project Epsilon</div>
-              </div>
+          <!-- Slide 2 -->
+          <div class="social-slide" data-slide="2">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Social Identity of the Indigenous Group</b><br><br>
+              <p style="margin-bottom: 1.5rem;">T'boli identity is expressed through language, clothing, music, and rituals. Their identity is inseparable from their environment and belief system. Being T'boli means living according to customs passed down through generations, particularly respect for elders, spirits, and communal harmony.</p>
             </div>
           </div>
 
-          <!-- Project Zeta -->
-          <div class="project-wrapper">
-            <h3 class="text-white text-2xl font-bold mb-4 text-center">Mandaya Tribe</h3>
-            <div class="bg-white/10 rounded-lg shadow p-8 flex flex-col items-center justify-center hover:bg-white/15 transition-all duration-300 project-options-container" style="background-image: url('Container1/Assets/Mandaya.avif');">
-              <div class="options-hover-text text mt-6"></div>
-              <div class="main options-list flex-col" style="position:relative; width:100%;">
-                <div class="card-text" tabindex="0" onclick="window.location.href='ProjectZeta.html'">Open Project Zeta</div>
-              </div>
+          <!-- Slide 3 -->
+          <div class="social-slide" data-slide="3">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Environmental Preservation</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Environmental stewardship is embedded in T'boli culture. Overharvesting, deforestation, and pollution are considered spiritual offenses. Traditional ecological knowledge guides farming cycles, forest use, and wildlife protection, making them natural environmental conservators.</p>
             </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="social-slide" data-slide="4">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Social Structure</b><br><br>
+              <p style="margin-bottom: 1.5rem;">T'boli society is communal and hierarchical, led by elders known for wisdom rather than wealth. Social roles are clearly defined, with elders, ritual specialists, farmers, and artisans each contributing to community life. Gender roles are complementary, with women playing a major role in weaving and cultural transmission.</p>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="social-slide" data-slide="5">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Social Issues in the Modern Era</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Modern challenges include land displacement, loss of ancestral domain, cultural erosion, poverty, and limited political representation. Tourism and commercialization of T'boli culture, especially T'nalak weaving, have brought income but also risks of exploitation and cultural dilution.</p>
+            </div>
+          </div>
+
+          </div>
+
+          <!-- Carousel Navigation -->
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button id="prevSocialBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">← Previous</button>
+            <div id="socialSlideIndicator" style="color: #d2dbeb; font-size: 1.2rem; font-weight: bold;">1 / 5</div>
+            <button id="nextSocialBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">Next →</button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Modal Overlay -->
-    <div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 opacity-0 invisible transition-all duration-300">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 max-w-4xl w-full mx-4 transform scale-90 transition-all duration-300 relative" id="modal-content">
-                <button id="close-modal" class="absolute top-4 right-4 text-white hover:text-gray-300 z-60 bg-black/30 rounded-full p-2 hover:bg-black/50 transition-all duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-                
-                <div class="flex flex-col lg:flex-row">
-                    <div class="lg:w-1/2 p-6">
-                        <img id="modal-image" src="" alt="" class="w-full h-80 lg:h-96 object-cover rounded-xl shadow-lg" />
-                    </div>
-                    
-                    <div class="lg:w-1/2 p-6 flex flex-col justify-center">
-                        <h2 id="modal-title" class="text-3xl font-bold text-[#38b2ac] mb-4"></h2>
-                        <div id="modal-description" class="text-gray-200 space-y-4"></div>
-                        
-                        <div class="mt-6 flex gap-3">
-                            <button id="view-project-btn" class="bg-[#38b2ac] hover:bg-[#2d8a82] text-white px-6 py-2 rounded-lg transition-colors duration-200">
-                                View Project
-                            </button>
-                            <button class="border border-[#38b2ac] text-[#38b2ac] hover:bg-[#38b2ac] hover:text-white px-6 py-2 rounded-lg transition-all duration-200">
-                                Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <!-- Political Section -->
+    <section id="political" class="story-section" style="background: linear-gradient(135deg, #01162b 0%, #00385a 100%);">
+      <h2 class="section-heading" style="color: #ff6b35; font-size: 3.5rem; margin-bottom: 2rem;">POLITICAL</h2>
+      <div class="story-content">
+        <div class="story-text">
+          <div class="political-carousel" style="position: relative; overflow: hidden; min-height: 500px;">
+          
+          <div class="political-slide active-political-slide" data-slide="1">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Types of Political System</b><br><br>
+              <p style="margin-bottom: 1.5rem;">The traditional T'boli political system is customary and elder-based, centered on consensus rather than coercion.</p>
             </div>
+          </div>
+
+          <div class="political-slide" data-slide="2">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Administration</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Leadership is informal but respected. Elders and ritual leaders oversee conflict resolution, land disputes, and community decisions.</p>
+            </div>
+          </div>
+
+          <div class="political-slide" data-slide="3">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Highlights of Policies (Rules and Regulations)</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Rules emphasize respect for land, elders, spirits, and social harmony. Violations are addressed through restitution and rituals rather than punishment.</p>
+            </div>
+          </div>
+
+          <div class="political-slide" data-slide="4">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Political Structure</b><br><br>
+              <p style="margin-bottom: 1.5rem;">The structure is decentralized, with authority distributed among respected elders rather than centralized power.</p>
+            </div>
+          </div>
+
+          <div class="political-slide" data-slide="5">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Political System in the Modern Era</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Traditional governance still exists but now coexists with barangay and municipal systems, often creating tension between state law and customary law.</p>
+            </div>
+          </div>
+
+          <div class="political-slide" data-slide="6">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Customary Laws</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Customary laws govern marriage, land use, conflict resolution, and spiritual conduct. These laws are oral and enforced through social accountability.</p>
+            </div>
+          </div>
+
         </div>
-    </div>
+
+          <!-- Carousel Navigation -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <button id="prevPoliticalBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">← Previous</button>
+            <div id="politicalSlideIndicator" style="color: #d2dbeb; font-size: 1.2rem; font-weight: bold;">1 / 6</div>
+            <button id="nextPoliticalBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">Next →</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Economic Section -->
+    <section id="economic" class="story-section" style="background: linear-gradient(135deg, #01162b 0%, #00385a 100%);">
+      <h2 class="section-heading" style="color: #ff6b35; font-size: 3.5rem; margin-bottom: 2rem;">ECONOMIC</h2>
+      <div class="story-content">
+        <div class="story-text">
+          <div class="economic-carousel" style="position: relative; overflow: hidden; min-height: 500px;">
+          
+          <div class="economic-slide active-economic-slide" data-slide="1">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Source of Living</b><br><br>
+              <p style="margin-bottom: 1.5rem;">The T'boli rely on subsistence agriculture, fishing, hunting, and weaving. Crops include rice, corn, root crops, and fruits.</p>
+            </div>
+          </div>
+
+          <div class="economic-slide" data-slide="2">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Relationship of Ancestral Land to Way of Life</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Their economy is inseparable from their land. Loss of ancestral land directly threatens food security, culture, and identity.</p>
+            </div>
+          </div>
+
+          <div class="economic-slide" data-slide="3">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Local and International Relationships</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Locally, T'boli communities trade with neighboring groups. Internationally, T'nalak textiles have reached global markets through cultural exhibitions and fair trade initiatives.</p>
+            </div>
+          </div>
+
+          <div class="economic-slide" data-slide="4">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Trade in Goods and Services</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Key goods include woven textiles, beads, brass ornaments, and agricultural products.</p>
+            </div>
+          </div>
+
+          <div class="economic-slide" data-slide="5">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Transfer of Technology and Ideas</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Modern farming tools, education, and digital exposure are gradually influencing T'boli life, especially among the youth, sometimes creating generational divides.</p>
+            </div>
+          </div>
+
+          </div>
+
+          <!-- Carousel Navigation -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <button id="prevEconomicBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">← Previous</button>
+            <div id="economicSlideIndicator" style="color: #d2dbeb; font-size: 1.2rem; font-weight: bold;">1 / 5</div>
+            <button id="nextEconomicBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">Next →</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="story-section" style="background: linear-gradient(135deg, #01162b 0%, #00385a 100%);">
+      <h2 class="section-heading" style="color: #ff6b35; font-size: 3.5rem; margin-bottom: 2rem;">CULTURE</h2>
+      <div class="story-content">
+        <div class="story-image">
+          <div style="position: relative; overflow: hidden; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+            <div class="lens-overlay"></div>
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 1" class="culture-image active-culture-image" data-slide="1" style="width: 100%; height: auto; display: block; border-radius: 1rem;">
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 2" class="culture-image" data-slide="2" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 3" class="culture-image" data-slide="3" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 4" class="culture-image" data-slide="4" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 5" class="culture-image" data-slide="5" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 6" class="culture-image" data-slide="6" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 7" class="culture-image" data-slide="7" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+          </div>
+        </div>
+        <div class="story-text">
+          <div class="culture-carousel" style="position: relative; overflow: hidden; min-height: 500px;">
+          
+          <div class="culture-slide active-culture-slide" data-slide="1">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Cultural Practices and Everyday Life</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Culture governs daily activities—from farming rituals to clothing choices. Power structures are intertwined with spiritual authority and elder wisdom.</p>
+            </div>
+          </div>
+
+          <div class="culture-slide" data-slide="2">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Customs and Traditions</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Rituals mark planting, harvest, healing, and life transitions. These traditions maintain social cohesion and spiritual balance.</p>
+            </div>
+          </div>
+
+          <div class="culture-slide" data-slide="3">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Arts</b><br><br>
+              <p style="margin-bottom: 1.5rem;">T'boli art is world-renowned, particularly T'nalak weaving, brass casting, and beadwork, often inspired by dreams and nature.</p>
+            </div>
+          </div>
+
+          <div class="culture-slide" data-slide="4">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Clothing</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Traditional clothing is colorful and symbolic, often decorated with beads and embroidery signifying status and identity.</p>
+            </div>
+          </div>
+
+          <div class="culture-slide" data-slide="5">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Literature</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Oral literature includes myths, chants, and epics passed down verbally, preserving history and moral lessons.</p>
+            </div>
+          </div>
+
+          <div class="culture-slide" data-slide="6">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Wedding Ceremony</b><br><br>
+              <p style="margin-bottom: 1.5rem;">T'boli weddings involve elaborate rituals, bridewealth, music, and community feasts, symbolizing unity between families and spirits.</p>
+            </div>
+          </div>
+
+          <div class="culture-slide" data-slide="7">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Music and Dance</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Music uses instruments like the kulintang, while dances mimic nature and spiritual narratives.</p>
+            </div>
+          </div>
+
+          </div>
+
+          <!-- Carousel Navigation -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <button id="prevCultureBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">← Previous</button>
+            <div id="cultureSlideIndicator" style="color: #d2dbeb; font-size: 1.2rem; font-weight: bold;">1 / 7</div>
+            <button id="nextCultureBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">Next →</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Religion Section -->
+    <section id="religion" class="story-section" style="background: linear-gradient(135deg, #01162b 0%, #00385a 100%);">
+      <h2 class="section-heading" style="color: #ff6b35; font-size: 3.5rem; margin-bottom: 2rem;">RELIGION</h2>
+      <div class="story-content">
+        <div class="story-text">
+          <div class="religion-carousel" style="position: relative; overflow: hidden; min-height: 500px;">
+          
+          <div class="religion-slide active-religion-slide" data-slide="1">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Ritual Practice</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Rituals are central to life, performed for healing, agriculture, and protection.</p>
+            </div>
+          </div>
+
+          <div class="religion-slide" data-slide="2">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Doctrines</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Their belief system centers on balance between humans, nature, and spirits.</p>
+            </div>
+          </div>
+
+          <div class="religion-slide" data-slide="3">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Philosophical Doctrines</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Life is seen as interconnected; disruption of harmony results in illness or misfortune.</p>
+            </div>
+          </div>
+
+          <div class="religion-slide" data-slide="4">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Ideological Beliefs</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Animism dominates, emphasizing coexistence with unseen forces.</p>
+            </div>
+          </div>
+
+          <div class="religion-slide" data-slide="5">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Religious Behavior</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Daily actions are guided by spiritual awareness, including offerings and prayers.</p>
+            </div>
+          </div>
+
+          <div class="religion-slide" data-slide="6">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Gods and Goddesses</b><br><br>
+              <p style="margin-bottom: 1.5rem;">The supreme deity is D'wata, alongside numerous nature spirits.</p>
+            </div>
+          </div>
+
+          <div class="religion-slide" data-slide="7">
+            <div style="font-size: 1.1rem; line-height: 2; text-align: justify; color: white;">
+              <b style="font-size: 1.4rem; color: #ff6b35;">Consequential Aspect</b><br><br>
+              <p style="margin-bottom: 1.5rem;">Religion shapes law, ethics, environmental care, and identity—ensuring cultural continuity.</p>
+            </div>
+          </div>
+
+          </div>
+
+          <!-- Carousel Navigation -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <button id="prevReligionBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">← Previous</button>
+            <div id="religionSlideIndicator" style="color: #d2dbeb; font-size: 1.2rem; font-weight: bold;">1 / 7</div>
+            <button id="nextReligionBtn" style="background: #6a90b4; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s;">Next →</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing/Info Section -->
+    <section id="pricing" class="pricing-section">
+      <div class="price-col">
+        2450 €<br>
+        <span style="font-size:1.2rem;font-weight:400;">Deposit – 500 €</span>
+      </div>
+      <div class="info-col">
+        <h3>Included in the price</h3>
+        <ul>
+          <li>Hotel accommodation</li>
+          <li>Individual transfer along the entire route in a comfortable car</li>
+          <li>Excursion trips (Jakarta – Papua New Guinea – Bali – Sumbawa – Sumba – Yogyakarta)</li>
+          <li>Tickets to the islands, ferries</li>
+          <li>Guide services</li>
+        </ul>
+        <h3>Not included in the price</h3>
+        <ul>
+          <li>International flight to Jakarta</li>
+          <li>Lunches</li>
+          <li>Alcohol and personal expenses</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section" style="background-image: url('img/contact.jpg');">
+      <div class="overlay"></div>
+      <form class="contact-form">
+        <h2>START YOUR JOURNEY</h2>
+        <div style="display:flex; gap:1rem;">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your E-mail" required>
+        </div>
+        <input type="text" placeholder="Message" required>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800/95 border-t border-white/10 text-gray-200 relative z-20">
-        <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="text-sm">&copy; 2025 Your Name. All rights reserved.</div>
-            <div class="flex gap-4">
-                <button class="boton-elegante">Privacy</button>
-                <button class="boton-elegante">Terms</button>
-                <button class="boton-elegante">Contact</button>
-            </div>
-        </div>
+    <footer id="footer">
+      Thank you for your attention <span class="heart">♥</span>
     </footer>
+  </section>
 
-    <!-- small loader script: tries multiple relative paths and sets hero background if image loads -->
-    <script>
-      (function(){
-        const bg = document.querySelector('.hero-bg');
-        const candidates = [
-          'Container1/Assets/Apo.jpg',
-          'Container1/Assets/apo.jpg',
-          'Assets/Apo.jpg',
-          'assets/Apo.jpg',
-          './Container1/Assets/Apo.jpg',
-          './Assets/Apo.jpg'
-        ];
-
-        function setBackground(url){
-          bg.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('" + url + "')";
-          bg.style.backgroundSize = 'cover';
-          bg.style.backgroundPosition = 'center';
-        }
-
-        function tryNext(i){
-          if(i >= candidates.length){
-            console.warn('Hero image not found. Tried:', candidates);
-            return;
-          }
-          const src = candidates[i];
-          const img = new Image();
-          img.onload = function(){
-            console.log('Loaded hero image:', src);
-            setBackground(src);
-          };
-          img.onerror = function(){
-            // try next path
-            tryNext(i+1);
-          };
-          img.src = src;
-        }
-
-        tryNext(0);
-      })();
-    </script>
+  <!-- External JavaScript -->
+  <script src="js/projectAlpha.js"></script>
 </body>
 </html>
