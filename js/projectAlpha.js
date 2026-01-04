@@ -52,12 +52,156 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, {
   root: null,
-  threshold: 0.45  // ~45% of section visible
+  threshold: 0.45
 });
 
 targets.forEach(sec => observer.observe(sec));
 
-// History Carousel Functionality
+// ====== FADE-IN ON SCROLL ANIMATION ======
+// Add CSS for fade-in animation FIRST
+const fadeInStyle = document.createElement('style');
+fadeInStyle.textContent = `
+  .fade-in-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .fade-in-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+`;
+document.head.appendChild(fadeInStyle);
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Setup observer
+  const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in-visible');
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.1,
+    rootMargin: '0px'
+  });
+
+  // Add fade-in to sections that exist
+  setTimeout(() => {
+    const sectionsToAnimate = document.querySelectorAll('#story, #dates, #political, #economic, #culture, #religion, #issues, #pricing, #contact');
+    sectionsToAnimate.forEach(section => {
+      if (section) {
+        section.classList.add('fade-in-element');
+        fadeInObserver.observe(section);
+      }
+    });
+  }, 100);
+});
+
+// ====== ENHANCED CAROUSEL TRANSITIONS ======
+const carouselStyle = document.createElement('style');
+carouselStyle.textContent = `
+  /* Slide animations */
+  .history-slide, .social-slide, .political-slide, .economic-slide, 
+  .culture-slide, .religion-slide, .issues-slide {
+    display: none;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .history-slide.active-slide, .social-slide.active-social-slide, 
+  .political-slide.active-political-slide, .economic-slide.active-economic-slide,
+  .culture-slide.active-culture-slide, .religion-slide.active-religion-slide,
+  .issues-slide.active-issues-slide {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideIn 0.6s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Reverse animation for previous button */
+  .slide-reverse {
+    animation: slideInReverse 0.6s ease-out !important;
+  }
+  
+  @keyframes slideInReverse {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Button hover effects */
+  #prevBtn:hover, #nextBtn:hover,
+  #prevSocialBtn:hover, #nextSocialBtn:hover,
+  #prevPoliticalBtn:hover, #nextPoliticalBtn:hover,
+  #prevEconomicBtn:hover, #nextEconomicBtn:hover,
+  #prevCultureBtn:hover, #nextCultureBtn:hover,
+  #prevReligionBtn:hover, #nextReligionBtn:hover,
+  #prevIssuesBtn:hover, #nextIssuesBtn:hover {
+    background: #e55a2b !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(229, 90, 43, 0.4);
+  }
+  
+  #prevBtn:disabled, #nextBtn:disabled,
+  #prevSocialBtn:disabled, #nextSocialBtn:disabled,
+  #prevPoliticalBtn:disabled, #nextPoliticalBtn:disabled,
+  #prevEconomicBtn:disabled, #nextEconomicBtn:disabled,
+  #prevCultureBtn:disabled, #nextCultureBtn:disabled,
+  #prevReligionBtn:disabled, #nextReligionBtn:disabled,
+  #prevIssuesBtn:disabled, #nextIssuesBtn:disabled {
+    background: #ccc !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  
+  /* Culture image transitions */
+  .culture-image {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .culture-image.active-culture-image {
+    display: block;
+    opacity: 1;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+`;
+document.head.appendChild(carouselStyle);
+
+// History Carousel with enhanced animations
 let currentSlide = 1;
 const totalSlides = 15;
 const slides = document.querySelectorAll('.history-slide');
@@ -65,57 +209,38 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const slideIndicator = document.getElementById('slideIndicator');
 
-// CSS for slides
-const style = document.createElement('style');
-style.textContent = `
-  .history-slide {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .history-slide.active-slide {
-    display: block;
-    opacity: 1;
-  }
-  #prevBtn:hover, #nextBtn:hover {
-    background: #e55a2b !important;
-    transform: scale(1.05);
-  }
-  #prevBtn:disabled, #nextBtn:disabled {
-    background: #ccc !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-`;
-document.head.appendChild(style);
-
-function showSlide(n) {
+function showSlide(n, direction = 'next') {
   if (n > totalSlides) currentSlide = totalSlides;
   if (n < 1) currentSlide = 1;
   
-  slides.forEach(slide => slide.classList.remove('active-slide'));
-  slides[currentSlide - 1].classList.add('active-slide');
+  slides.forEach(slide => {
+    slide.classList.remove('active-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = slides[currentSlide - 1];
+  activeSlide.classList.add('active-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
   
   slideIndicator.textContent = `${currentSlide} / ${totalSlides}`;
-  
   prevBtn.disabled = (currentSlide === 1);
   nextBtn.disabled = (currentSlide === totalSlides);
 }
 
 prevBtn.addEventListener('click', () => {
   currentSlide--;
-  showSlide(currentSlide);
+  showSlide(currentSlide, 'prev');
 });
 
 nextBtn.addEventListener('click', () => {
   currentSlide++;
-  showSlide(currentSlide);
+  showSlide(currentSlide, 'next');
 });
 
-// Initialize
 showSlide(currentSlide);
 
-// Social Carousel Functionality
+// Social Carousel
 let currentSocialSlide = 1;
 const totalSocialSlides = 7;
 const socialSlides = document.querySelectorAll('.social-slide');
@@ -123,54 +248,35 @@ const prevSocialBtn = document.getElementById('prevSocialBtn');
 const nextSocialBtn = document.getElementById('nextSocialBtn');
 const socialSlideIndicator = document.getElementById('socialSlideIndicator');
 
-// CSS for social slides
-const socialStyle = document.createElement('style');
-socialStyle.textContent = `
-  .social-slide {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .social-slide.active-social-slide {
-    display: block;
-    opacity: 1;
-  }
-  #prevSocialBtn:hover, #nextSocialBtn:hover {
-    background: #e55a2b !important;
-    transform: scale(1.05);
-  }
-  #prevSocialBtn:disabled, #nextSocialBtn:disabled {
-    background: #ccc !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-`;
-document.head.appendChild(socialStyle);
-
-function showSocialSlide(n) {
+function showSocialSlide(n, direction = 'next') {
   if (n > totalSocialSlides) currentSocialSlide = totalSocialSlides;
   if (n < 1) currentSocialSlide = 1;
   
-  socialSlides.forEach(slide => slide.classList.remove('active-social-slide'));
-  socialSlides[currentSocialSlide - 1].classList.add('active-social-slide');
+  socialSlides.forEach(slide => {
+    slide.classList.remove('active-social-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = socialSlides[currentSocialSlide - 1];
+  activeSlide.classList.add('active-social-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
   
   socialSlideIndicator.textContent = `${currentSocialSlide} / ${totalSocialSlides}`;
-  
   prevSocialBtn.disabled = (currentSocialSlide === 1);
   nextSocialBtn.disabled = (currentSocialSlide === totalSocialSlides);
 }
 
 prevSocialBtn.addEventListener('click', () => {
   currentSocialSlide--;
-  showSocialSlide(currentSocialSlide);
+  showSocialSlide(currentSocialSlide, 'prev');
 });
 
 nextSocialBtn.addEventListener('click', () => {
   currentSocialSlide++;
-  showSocialSlide(currentSocialSlide);
+  showSocialSlide(currentSocialSlide, 'next');
 });
 
-// Initialize
 showSocialSlide(currentSocialSlide);
 
 // Political Carousel
@@ -181,46 +287,74 @@ const prevPoliticalBtn = document.getElementById('prevPoliticalBtn');
 const nextPoliticalBtn = document.getElementById('nextPoliticalBtn');
 const politicalSlideIndicator = document.getElementById('politicalSlideIndicator');
 
-const politicalStyle = document.createElement('style');
-politicalStyle.textContent = `.political-slide { display: none; opacity: 0; transition: opacity 0.5s; } .political-slide.active-political-slide { display: block; opacity: 1; } #prevPoliticalBtn:hover, #nextPoliticalBtn:hover { background: #e55a2b !important; transform: scale(1.05); } #prevPoliticalBtn:disabled, #nextPoliticalBtn:disabled { background: #ccc !important; cursor: not-allowed; opacity: 0.6; }`;
-document.head.appendChild(politicalStyle);
-
-function showPoliticalSlide(n) {
+function showPoliticalSlide(n, direction = 'next') {
   if (n > totalPoliticalSlides) currentPoliticalSlide = totalPoliticalSlides;
   if (n < 1) currentPoliticalSlide = 1;
-  politicalSlides.forEach(slide => slide.classList.remove('active-political-slide'));
-  politicalSlides[currentPoliticalSlide - 1].classList.add('active-political-slide');
+  
+  politicalSlides.forEach(slide => {
+    slide.classList.remove('active-political-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = politicalSlides[currentPoliticalSlide - 1];
+  activeSlide.classList.add('active-political-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
+  
   politicalSlideIndicator.textContent = `${currentPoliticalSlide} / ${totalPoliticalSlides}`;
   prevPoliticalBtn.disabled = (currentPoliticalSlide === 1);
   nextPoliticalBtn.disabled = (currentPoliticalSlide === totalPoliticalSlides);
 }
-prevPoliticalBtn.addEventListener('click', () => { currentPoliticalSlide--; showPoliticalSlide(currentPoliticalSlide); });
-nextPoliticalBtn.addEventListener('click', () => { currentPoliticalSlide++; showPoliticalSlide(currentPoliticalSlide); });
+
+prevPoliticalBtn.addEventListener('click', () => {
+  currentPoliticalSlide--;
+  showPoliticalSlide(currentPoliticalSlide, 'prev');
+});
+
+nextPoliticalBtn.addEventListener('click', () => {
+  currentPoliticalSlide++;
+  showPoliticalSlide(currentPoliticalSlide, 'next');
+});
+
 showPoliticalSlide(currentPoliticalSlide);
 
 // Economic Carousel
 let currentEconomicSlide = 1;
-const totalEconomicSlides = 5;
+const totalEconomicSlides = 4;
 const economicSlides = document.querySelectorAll('.economic-slide');
 const prevEconomicBtn = document.getElementById('prevEconomicBtn');
 const nextEconomicBtn = document.getElementById('nextEconomicBtn');
 const economicSlideIndicator = document.getElementById('economicSlideIndicator');
 
-const economicStyle = document.createElement('style');
-economicStyle.textContent = `.economic-slide { display: none; opacity: 0; transition: opacity 0.5s; } .economic-slide.active-economic-slide { display: block; opacity: 1; } #prevEconomicBtn:hover, #nextEconomicBtn:hover { background: #e55a2b !important; transform: scale(1.05); } #prevEconomicBtn:disabled, #nextEconomicBtn:disabled { background: #ccc !important; cursor: not-allowed; opacity: 0.6; }`;
-document.head.appendChild(economicStyle);
-
-function showEconomicSlide(n) {
+function showEconomicSlide(n, direction = 'next') {
   if (n > totalEconomicSlides) currentEconomicSlide = totalEconomicSlides;
   if (n < 1) currentEconomicSlide = 1;
-  economicSlides.forEach(slide => slide.classList.remove('active-economic-slide'));
-  economicSlides[currentEconomicSlide - 1].classList.add('active-economic-slide');
+  
+  economicSlides.forEach(slide => {
+    slide.classList.remove('active-economic-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = economicSlides[currentEconomicSlide - 1];
+  activeSlide.classList.add('active-economic-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
+  
   economicSlideIndicator.textContent = `${currentEconomicSlide} / ${totalEconomicSlides}`;
   prevEconomicBtn.disabled = (currentEconomicSlide === 1);
   nextEconomicBtn.disabled = (currentEconomicSlide === totalEconomicSlides);
 }
-prevEconomicBtn.addEventListener('click', () => { currentEconomicSlide--; showEconomicSlide(currentEconomicSlide); });
-nextEconomicBtn.addEventListener('click', () => { currentEconomicSlide++; showEconomicSlide(currentEconomicSlide); });
+
+prevEconomicBtn.addEventListener('click', () => {
+  currentEconomicSlide--;
+  showEconomicSlide(currentEconomicSlide, 'prev');
+});
+
+nextEconomicBtn.addEventListener('click', () => {
+  currentEconomicSlide++;
+  showEconomicSlide(currentEconomicSlide, 'next');
+});
+
 showEconomicSlide(currentEconomicSlide);
 
 // Culture Carousel
@@ -232,23 +366,38 @@ const prevCultureBtn = document.getElementById('prevCultureBtn');
 const nextCultureBtn = document.getElementById('nextCultureBtn');
 const cultureSlideIndicator = document.getElementById('cultureSlideIndicator');
 
-const cultureStyle = document.createElement('style');
-cultureStyle.textContent = `.culture-slide { display: none; opacity: 0; transition: opacity 0.5s; } .culture-slide.active-culture-slide { display: block; opacity: 1; } .culture-image { display: none; opacity: 0; transition: opacity 0.5s; position: absolute; top: 0; left: 0; width: 100%; } .culture-image.active-culture-image { display: block; opacity: 1; position: relative; } #prevCultureBtn:hover, #nextCultureBtn:hover { background: #e55a2b !important; transform: scale(1.05); } #prevCultureBtn:disabled, #nextCultureBtn:disabled { background: #ccc !important; cursor: not-allowed; opacity: 0.6; }`;
-document.head.appendChild(cultureStyle);
-
-function showCultureSlide(n) {
+function showCultureSlide(n, direction = 'next') {
   if (n > totalCultureSlides) currentCultureSlide = totalCultureSlides;
   if (n < 1) currentCultureSlide = 1;
-  cultureSlides.forEach(slide => slide.classList.remove('active-culture-slide'));
-  cultureSlides[currentCultureSlide - 1].classList.add('active-culture-slide');
+  
+  cultureSlides.forEach(slide => {
+    slide.classList.remove('active-culture-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = cultureSlides[currentCultureSlide - 1];
+  activeSlide.classList.add('active-culture-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
+  
   cultureImages.forEach(img => img.classList.remove('active-culture-image'));
   cultureImages[currentCultureSlide - 1].classList.add('active-culture-image');
+  
   cultureSlideIndicator.textContent = `${currentCultureSlide} / ${totalCultureSlides}`;
   prevCultureBtn.disabled = (currentCultureSlide === 1);
   nextCultureBtn.disabled = (currentCultureSlide === totalCultureSlides);
 }
-prevCultureBtn.addEventListener('click', () => { currentCultureSlide--; showCultureSlide(currentCultureSlide); });
-nextCultureBtn.addEventListener('click', () => { currentCultureSlide++; showCultureSlide(currentCultureSlide); });
+
+prevCultureBtn.addEventListener('click', () => {
+  currentCultureSlide--;
+  showCultureSlide(currentCultureSlide, 'prev');
+});
+
+nextCultureBtn.addEventListener('click', () => {
+  currentCultureSlide++;
+  showCultureSlide(currentCultureSlide, 'next');
+});
+
 showCultureSlide(currentCultureSlide);
 
 // Religion Carousel
@@ -259,21 +408,35 @@ const prevReligionBtn = document.getElementById('prevReligionBtn');
 const nextReligionBtn = document.getElementById('nextReligionBtn');
 const religionSlideIndicator = document.getElementById('religionSlideIndicator');
 
-const religionStyle = document.createElement('style');
-religionStyle.textContent = `.religion-slide { display: none; opacity: 0; transition: opacity 0.5s; } .religion-slide.active-religion-slide { display: block; opacity: 1; } #prevReligionBtn:hover, #nextReligionBtn:hover { background: #e55a2b !important; transform: scale(1.05); } #prevReligionBtn:disabled, #nextReligionBtn:disabled { background: #ccc !important; cursor: not-allowed; opacity: 0.6; }`;
-document.head.appendChild(religionStyle);
-
-function showReligionSlide(n) {
+function showReligionSlide(n, direction = 'next') {
   if (n > totalReligionSlides) currentReligionSlide = totalReligionSlides;
   if (n < 1) currentReligionSlide = 1;
-  religionSlides.forEach(slide => slide.classList.remove('active-religion-slide'));
-  religionSlides[currentReligionSlide - 1].classList.add('active-religion-slide');
+  
+  religionSlides.forEach(slide => {
+    slide.classList.remove('active-religion-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = religionSlides[currentReligionSlide - 1];
+  activeSlide.classList.add('active-religion-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
+  
   religionSlideIndicator.textContent = `${currentReligionSlide} / ${totalReligionSlides}`;
   prevReligionBtn.disabled = (currentReligionSlide === 1);
   nextReligionBtn.disabled = (currentReligionSlide === totalReligionSlides);
 }
-prevReligionBtn.addEventListener('click', () => { currentReligionSlide--; showReligionSlide(currentReligionSlide); });
-nextReligionBtn.addEventListener('click', () => { currentReligionSlide++; showReligionSlide(currentReligionSlide); });
+
+prevReligionBtn.addEventListener('click', () => {
+  currentReligionSlide--;
+  showReligionSlide(currentReligionSlide, 'prev');
+});
+
+nextReligionBtn.addEventListener('click', () => {
+  currentReligionSlide++;
+  showReligionSlide(currentReligionSlide, 'next');
+});
+
 showReligionSlide(currentReligionSlide);
 
 // Issues Carousel
@@ -284,19 +447,33 @@ const prevIssuesBtn = document.getElementById('prevIssuesBtn');
 const nextIssuesBtn = document.getElementById('nextIssuesBtn');
 const issuesSlideIndicator = document.getElementById('issuesSlideIndicator');
 
-const issuesStyle = document.createElement('style');
-issuesStyle.textContent = `.issues-slide { display: none; opacity: 0; transition: opacity 0.5s; } .issues-slide.active-issues-slide { display: block; opacity: 1; } #prevIssuesBtn:hover, #nextIssuesBtn:hover { background: #e55a2b !important; transform: scale(1.05); } #prevIssuesBtn:disabled, #nextIssuesBtn:disabled { background: #ccc !important; cursor: not-allowed; opacity: 0.6; }`;
-document.head.appendChild(issuesStyle);
-
-function showIssuesSlide(n) {
+function showIssuesSlide(n, direction = 'next') {
   if (n > totalIssuesSlides) currentIssuesSlide = totalIssuesSlides;
   if (n < 1) currentIssuesSlide = 1;
-  issuesSlides.forEach(slide => slide.classList.remove('active-issues-slide'));
-  issuesSlides[currentIssuesSlide - 1].classList.add('active-issues-slide');
+  
+  issuesSlides.forEach(slide => {
+    slide.classList.remove('active-issues-slide', 'slide-reverse');
+  });
+  
+  const activeSlide = issuesSlides[currentIssuesSlide - 1];
+  activeSlide.classList.add('active-issues-slide');
+  if (direction === 'prev') {
+    activeSlide.classList.add('slide-reverse');
+  }
+  
   issuesSlideIndicator.textContent = `${currentIssuesSlide} / ${totalIssuesSlides}`;
   prevIssuesBtn.disabled = (currentIssuesSlide === 1);
   nextIssuesBtn.disabled = (currentIssuesSlide === totalIssuesSlides);
 }
-prevIssuesBtn.addEventListener('click', () => { currentIssuesSlide--; showIssuesSlide(currentIssuesSlide); });
-nextIssuesBtn.addEventListener('click', () => { currentIssuesSlide++; showIssuesSlide(currentIssuesSlide); });
+
+prevIssuesBtn.addEventListener('click', () => {
+  currentIssuesSlide--;
+  showIssuesSlide(currentIssuesSlide, 'prev');
+});
+
+nextIssuesBtn.addEventListener('click', () => {
+  currentIssuesSlide++;
+  showIssuesSlide(currentIssuesSlide, 'next');
+});
+
 showIssuesSlide(currentIssuesSlide);
