@@ -251,12 +251,14 @@ body {
 .gallery-section {
   background: #111;
   padding: 2rem 0;
+  padding-left: calc(64px + 3rem); /* Account for sidebar width + extra spacing */
   overflow-x: auto;
 }
 .gallery-row {
   display: flex;
   gap: 1.5rem;
-  padding: 1rem 2rem;
+  padding: 1rem 0;
+  padding-right: 2rem;
 }
 .gallery-row img {
   width: 200px;
@@ -274,6 +276,7 @@ body {
   align-items: center;
   gap: 2rem;
   padding: 3rem 0;
+  padding-left: calc(64px + 3rem); /* Account for sidebar width + extra spacing */
 }
 .pricing-section .price-col {
   flex: 1 1 30%;
@@ -372,6 +375,7 @@ footer .heart {
 .story-section {
   background: #111;
   padding: 4rem 2rem;
+  padding-left: calc(64px + 3rem); /* Account for sidebar width + extra spacing */
   min-height: 70vh;
 }
 .story-section .section-heading {
