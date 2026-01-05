@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Digital Portfolio</title>
+  <link rel="stylesheet" href="css/projects.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="top-header">
+    <div class="header-container">
+      <div class="logo">
+        <h2>Portfolio</h2>
+      </div>
+      <nav class="top-nav">
+        <ul class="nav-menu">
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="Projects.html" class="active">Projects</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sidebar Toggle Button -->
+  <div class="sidebar-toggle" onclick="toggleSidebar()">
+    <i class='bx bx-menu' style="font-size: 24px; color: white;"></i>
+  </div>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <div class="sidebar-content">
+      <ul class="nav-list">
+        <li>
+          <a href="Home.html">
+            <i class='bx bx-home'></i>
+            <span class="links_name">Home</span>
+          </a>
+          <span class="tooltip">Home</span>
+        </li>
+        <li>
+          <a href="Projects.html" class="active">
+            <i class='bx bx-grid-alt'></i>
+            <span class="links_name">Projects</span>
+          </a>
+          <span class="tooltip">Projects</span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <section class="page-header">
+      <h1>Portfolio Gallery</h1>
+    </section>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Row 1 -->
+      <div class="project-card" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/T'boli_woman.jpg" alt="T'boli Woman">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>         </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Lake Sebu</p>
+          <h3 class="project-title">T'boli Woman in Traditional Attire</h3>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/Embroidery.jpg" alt="T'nalak Pattern">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">South Cotabato</p>
+          <h3 class="project-title">Traditional T'nalak Pattern</h3>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="project-card" data-category="building">
+        <div class="project-image">
+          <img src="Container1/Assets/Apo.jpg" alt="Mount Apo">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Mindanao</p>
+          <h3 class="project-title">Mount Apo - Highest Peak in Philippines</h3>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="project-card" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/Backgroundtib.webp" alt="T'boli Cultural Group">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Lake Sebu</p>
+          <h3 class="project-title">T'boli Cultural Ensemble</h3>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="building">
+        <div class="project-image">
+          <img src="Container1/Assets/Bahay_kubo.jpg" alt="Bahay Kubo">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Philippines</p>
+          <h3 class="project-title">Traditional Bahay Kubo House</h3>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="project-card" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/Tboli.jpeg" alt="T'boli Traditional Dress">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">South Cotabato</p>
+          <h3 class="project-title">T'boli Traditional Dress & Accessories</h3>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/TboliArts.jpg" alt="T'boli Arts">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Lake Sebu</p>
+          <h3 class="project-title">T'boli Arts & Crafts</h3>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/wmremove-transformed (2).jpeg" alt="T'boli Weaving">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">South Cotabato</p>
+          <h3 class="project-title">Traditional T'nalak Weaving</h3>
+        </div>
+      </div>
+
+      <!-- Hidden projects (will show on Load More) -->
+      <div class="project-card hidden" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/Hegelung.jpg" alt="T'boli Hegelung">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">South Cotabato</p>
+          <h3 class="project-title">T'boli Hegelung Traditional Instrument</h3>
+        </div>
+      </div>
+
+      <div class="project-card hidden" data-category="tboli">
+        <div class="project-image">
+          <img src="Container1/Assets/add.jpg" alt="T'boli Sunrise">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Lake Sebu</p>
+          <h3 class="project-title">T'boli Community at Dawn</h3>
+        </div>
+      </div>
+
+      <div class="project-card hidden" data-category="tboli">
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop" alt="T'boli Museum">
+          <div class="project-overlay">
+            <span class="view-project">View Project</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-location">Lake Sebu</p>
+          <h3 class="project-title">T'boli Museum & Heritage Center</h3>
+        </div>
+      </div>
+
+     
+    </div>
+    <!-- End Projects Grid -->
+
+    <!-- Load More Button -->
+    <div class="load-more-container">
+      <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">
+        LOAD MORE
+      </button>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for Image Zoom -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" alt="Zoomed Image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+
+  <script src="js/projects.js"></script>
+</body>
+</html>

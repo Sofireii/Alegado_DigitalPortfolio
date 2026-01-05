@@ -221,9 +221,118 @@
       position: static !important;
       left: auto !important;
     }
+
+    /* Top Header Styles */
+    .top-header {
+      position: fixed;
+      top: -70px;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(135deg, #01162b 0%, #00385a 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      padding: 0;
+      transition: top 0.4s ease;
+    }
+
+    .top-header:hover {
+      top: 0;
+    }
+
+    /* Show header when hovering near top of page */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      z-index: 998;
+      pointer-events: none;
+    }
+
+    body:hover .top-header {
+      top: 0;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo h2 {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .nav-menu > li {
+      position: relative;
+    }
+
+    .nav-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-menu a:hover {
+      color: #5ec4e8;
+      background: rgba(94, 196, 232, 0.1);
+    }
+
+    /* Remove body padding since header is hidden by default */
+    body {
+      padding-top: 0;
+    }
   </style>
 </head>
 <body>
+  <!-- Top Header with Slide Down -->
+  <header class="top-header">
+    <div class="header-container">
+      <div class="logo">
+        <h2>T'boli Portfolio</h2>
+      </div>
+      <nav class="top-nav">
+        <ul class="nav-menu">
+          <li><a href="Projects.html">Gallery</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <!-- Toggle button - always visible, outside sidebar -->
   <div class="sidebar-toggle">
     <i class='bx bx-chevron-right' id="btn" aria-label="Toggle sidebar"></i>
@@ -673,14 +782,17 @@
       <div class="story-content">
         <div class="story-image">
           <div style="position: relative; overflow: hidden; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
-            <div class="lens-overlay"></div>
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 1" class="culture-image active-culture-image" data-slide="1" style="width: 100%; height: auto; display: block; border-radius: 1rem;">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 2" class="culture-image" data-slide="2" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 3" class="culture-image" data-slide="3" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 4" class="culture-image" data-slide="4" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 5" class="culture-image" data-slide="5" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 6" class="culture-image" data-slide="6" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Culture 7" class="culture-image" data-slide="7" style="width: 100%; height: auto; display: none; border-radius: 1rem;">
+            <img src="Container1/Assets/T'boli_woman.jpg" alt="T'boli Culture 1" class="culture-image active-culture-image" data-slide="1" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="Container1/Assets/transformed.jpeg" alt="T'boli Culture 2" class="culture-image" data-slide="2" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="Container1/Assets/Hegelung.jpg" alt="T'boli Culture 3" class="culture-image" data-slide="3" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="Container1/Assets/Hegelung.jpg" alt="T'boli Culture 4" class="culture-image" data-slide="4" style="width: 100%; height: auto; border-radius: 1rem;">
+            <video class="culture-image" data-slide="5" style="width: 100%; aspect-ratio: 16/9; border-radius: 1rem; background: #000; position: relative; z-index: 10;" controls>
+              <source src="Container1/Assets/Tbolidance.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <img src="" class="culture-image" data-slide="6" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="Container1/Assets/Embroidery.jpg" alt="T'boli Culture 7" class="culture-image" data-slide="7" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="Container1/Assets/Backgroundtib.webp" alt="T'boli Culture 8" class="culture-image" data-slide="8" style="width: 100%; height: auto; border-radius: 1rem;">
           </div>
         </div>
         <div class="story-text">
@@ -947,30 +1059,6 @@
           </div>
         </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Pricing/Info Section -->
-    <section id="pricing" class="pricing-section">
-      <div class="price-col">
-        2450 €<br>
-        <span style="font-size:1.2rem;font-weight:400;">Deposit – 500 €</span>
-      </div>
-      <div class="info-col">
-        <h3>Included in the price</h3>
-        <ul>
-          <li>Hotel accommodation</li>
-          <li>Individual transfer along the entire route in a comfortable car</li>
-          <li>Excursion trips (Jakarta – Papua New Guinea – Bali – Sumbawa – Sumba – Yogyakarta)</li>
-          <li>Tickets to the islands, ferries</li>
-          <li>Guide services</li>
-        </ul>
-        <h3>Not included in the price</h3>
-        <ul>
-          <li>International flight to Jakarta</li>
-          <li>Lunches</li>
-          <li>Alcohol and personal expenses</li>
-        </ul>
       </div>
     </section>
 
