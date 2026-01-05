@@ -452,7 +452,7 @@ showEconomicSlide(currentEconomicSlide);
 
 // Culture Carousel
 let currentCultureSlide = 1;
-const totalCultureSlides = 8;
+const totalCultureSlides = 10;
 const cultureSlides = document.querySelectorAll('.culture-slide');
 const cultureImages = document.querySelectorAll('.culture-image');
 const prevCultureBtn = document.getElementById('prevCultureBtn');
@@ -475,6 +475,15 @@ function showCultureSlide(n, direction = 'next') {
   
   cultureImages.forEach(img => img.classList.remove('active-culture-image'));
   cultureImages[currentCultureSlide - 1].classList.add('active-culture-image');
+  
+  // Check if current slide has a hidden image (no visible image)
+  const currentImage = cultureImages[currentCultureSlide - 1];
+  const cultureSection = document.getElementById('culture');
+  if (currentImage && (currentImage.style.visibility === 'hidden' || currentImage.getAttribute('src') === '')) {
+    cultureSection.classList.add('no-image-active');
+  } else {
+    cultureSection.classList.remove('no-image-active');
+  }
   
   cultureSlideIndicator.textContent = `${currentCultureSlide} / ${totalCultureSlides}`;
   prevCultureBtn.disabled = (currentCultureSlide === 1);
