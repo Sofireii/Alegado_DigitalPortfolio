@@ -194,6 +194,60 @@ carouselStyle.textContent = `
     animation: fadeIn 0.6s ease-out;
   }
   
+  /* History image transitions */
+  .history-image {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .history-image.active-history-image {
+    display: block;
+    opacity: 1;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  /* Political image transitions */
+  .political-image {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .political-image.active-political-image {
+    display: block;
+    opacity: 1;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  /* Economic image transitions */
+  .economic-image {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .economic-image.active-economic-image {
+    display: block;
+    opacity: 1;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -203,8 +257,9 @@ document.head.appendChild(carouselStyle);
 
 // History Carousel with enhanced animations
 let currentSlide = 1;
-const totalSlides = 15;
+const totalSlides = 16;
 const slides = document.querySelectorAll('.history-slide');
+const historyImages = document.querySelectorAll('.history-image');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const slideIndicator = document.getElementById('slideIndicator');
@@ -222,6 +277,9 @@ function showSlide(n, direction = 'next') {
   if (direction === 'prev') {
     activeSlide.classList.add('slide-reverse');
   }
+  
+  historyImages.forEach(img => img.classList.remove('active-history-image'));
+  historyImages[currentSlide - 1].classList.add('active-history-image');
   
   slideIndicator.textContent = `${currentSlide} / ${totalSlides}`;
   prevBtn.disabled = (currentSlide === 1);
@@ -283,6 +341,7 @@ showSocialSlide(currentSocialSlide);
 let currentPoliticalSlide = 1;
 const totalPoliticalSlides = 5;
 const politicalSlides = document.querySelectorAll('.political-slide');
+const politicalImages = document.querySelectorAll('.political-image');
 const prevPoliticalBtn = document.getElementById('prevPoliticalBtn');
 const nextPoliticalBtn = document.getElementById('nextPoliticalBtn');
 const politicalSlideIndicator = document.getElementById('politicalSlideIndicator');
@@ -300,6 +359,9 @@ function showPoliticalSlide(n, direction = 'next') {
   if (direction === 'prev') {
     activeSlide.classList.add('slide-reverse');
   }
+  
+  politicalImages.forEach(img => img.classList.remove('active-political-image'));
+  politicalImages[currentPoliticalSlide - 1].classList.add('active-political-image');
   
   politicalSlideIndicator.textContent = `${currentPoliticalSlide} / ${totalPoliticalSlides}`;
   prevPoliticalBtn.disabled = (currentPoliticalSlide === 1);
@@ -322,6 +384,7 @@ showPoliticalSlide(currentPoliticalSlide);
 let currentEconomicSlide = 1;
 const totalEconomicSlides = 4;
 const economicSlides = document.querySelectorAll('.economic-slide');
+const economicImages = document.querySelectorAll('.economic-image');
 const prevEconomicBtn = document.getElementById('prevEconomicBtn');
 const nextEconomicBtn = document.getElementById('nextEconomicBtn');
 const economicSlideIndicator = document.getElementById('economicSlideIndicator');
@@ -339,6 +402,9 @@ function showEconomicSlide(n, direction = 'next') {
   if (direction === 'prev') {
     activeSlide.classList.add('slide-reverse');
   }
+  
+  economicImages.forEach(img => img.classList.remove('active-economic-image'));
+  economicImages[currentEconomicSlide - 1].classList.add('active-economic-image');
   
   economicSlideIndicator.textContent = `${currentEconomicSlide} / ${totalEconomicSlides}`;
   prevEconomicBtn.disabled = (currentEconomicSlide === 1);
