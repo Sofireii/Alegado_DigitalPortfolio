@@ -201,6 +201,20 @@
       pointer-events: none !important;
     }
     
+    /* Center content when no image is visible */
+    .story-section.no-image-active .story-content {
+      justify-content: center;
+    }
+    
+    .story-section.no-image-active .story-image {
+      display: none;
+    }
+    
+    .story-section.no-image-active .story-text {
+      flex: 1 1 100%;
+      max-width: 900px;
+    }
+    
     /* Logo name animation */
     .sidebar .logo_name {
       display: block !important;
@@ -589,7 +603,7 @@
             <img src="" class="history-image" data-slide="10" style="width: 100%; height: auto; border-radius: 1rem; visibility: hidden;">
             <img src="Container1/Assets/History/History page 12.jpg" alt="T'boli History 11" class="history-image" data-slide="11" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="" class="history-image" data-slide="12" style="width: 100%; height: auto; border-radius: 1rem; visibility: hidden;">
-            <img src="" class="history-image" data-slide="13" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="" class="history-image" data-slide="13" style="width: 100%; height: auto; border-radius: 1rem; visibility: hidden;">
             <img src="" class="history-image" data-slide="14" style="width: 100%; height: auto; border-radius: 1rem; visibility: hidden;">
             <img src="Container1/Assets/History/History page 14.jpg" alt="T'boli History 15" class="history-image" data-slide="15" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="" class="history-image" data-slide="16" style="width: 100%; height: auto; border-radius: 1rem; visibility: hidden;">
@@ -684,7 +698,7 @@
       <div class="story-content">
         <div class="story-image">
           <div style="position: relative; overflow: hidden; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Political 1" class="political-image active-political-image" data-slide="1" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="" alt="T'boli Political 1" class="political-image active-political-image" data-slide="1" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="Container1/Assets/Political page 2.jpg" alt="T'boli Political 2" class="political-image" data-slide="2" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="" class="political-image" data-slide="3" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="" class="political-image" data-slide="4" style="width: 100%; height: auto; border-radius: 1rem;">
@@ -753,7 +767,7 @@
       <div class="story-content">
         <div class="story-image">
           <div style="position: relative; overflow: hidden; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
-            <img src="Container1/Assets/add.jpg" alt="T'boli Economic 1" class="economic-image active-economic-image" data-slide="1" style="width: 100%; height: auto; border-radius: 1rem;">
+            <img src="" alt="T'boli Economic 1" class="economic-image active-economic-image" data-slide="1" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="Container1/Assets/Economic page 2.jpg" alt="T'boli Economic 2" class="economic-image" data-slide="2" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="" class="economic-image" data-slide="3" style="width: 100%; height: auto; border-radius: 1rem;">
             <img src="" class="economic-image" data-slide="4" style="width: 100%; height: auto; border-radius: 1rem;">

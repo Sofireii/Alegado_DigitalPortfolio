@@ -281,6 +281,15 @@ function showSlide(n, direction = 'next') {
   historyImages.forEach(img => img.classList.remove('active-history-image'));
   historyImages[currentSlide - 1].classList.add('active-history-image');
   
+  // Check if current slide has a hidden image (no visible image)
+  const currentImage = historyImages[currentSlide - 1];
+  const historySection = document.getElementById('story');
+  if (currentImage && currentImage.style.visibility === 'hidden') {
+    historySection.classList.add('no-image-active');
+  } else {
+    historySection.classList.remove('no-image-active');
+  }
+  
   slideIndicator.textContent = `${currentSlide} / ${totalSlides}`;
   prevBtn.disabled = (currentSlide === 1);
   nextBtn.disabled = (currentSlide === totalSlides);
@@ -363,6 +372,15 @@ function showPoliticalSlide(n, direction = 'next') {
   politicalImages.forEach(img => img.classList.remove('active-political-image'));
   politicalImages[currentPoliticalSlide - 1].classList.add('active-political-image');
   
+  // Check if current slide has an empty image src
+  const currentImage = politicalImages[currentPoliticalSlide - 1];
+  const politicalSection = document.getElementById('political');
+  if (currentImage && currentImage.getAttribute('src') === '') {
+    politicalSection.classList.add('no-image-active');
+  } else {
+    politicalSection.classList.remove('no-image-active');
+  }
+  
   politicalSlideIndicator.textContent = `${currentPoliticalSlide} / ${totalPoliticalSlides}`;
   prevPoliticalBtn.disabled = (currentPoliticalSlide === 1);
   nextPoliticalBtn.disabled = (currentPoliticalSlide === totalPoliticalSlides);
@@ -405,6 +423,15 @@ function showEconomicSlide(n, direction = 'next') {
   
   economicImages.forEach(img => img.classList.remove('active-economic-image'));
   economicImages[currentEconomicSlide - 1].classList.add('active-economic-image');
+  
+  // Check if current slide has an empty image src
+  const currentImage = economicImages[currentEconomicSlide - 1];
+  const economicSection = document.getElementById('economic');
+  if (currentImage && currentImage.getAttribute('src') === '') {
+    economicSection.classList.add('no-image-active');
+  } else {
+    economicSection.classList.remove('no-image-active');
+  }
   
   economicSlideIndicator.textContent = `${currentEconomicSlide} / ${totalEconomicSlides}`;
   prevEconomicBtn.disabled = (currentEconomicSlide === 1);
